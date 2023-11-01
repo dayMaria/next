@@ -1,0 +1,12 @@
+/*#outerContainer #mainContainer .toolbar {
+  display: none !important;
+}
+
+#outerContainer #mainContainer #viewerContainer {
+  top: 0 !important;
+}*/
+
+visor-pdf react-pdf__Page react-pdf__Page__svg svg {
+  height: 100%;
+  width: 100%;
+}

@@ -1,0 +1,28 @@
+stages:
+  - dev
+  - prod
+
+dev:
+  stage: dev
+  tags:
+    - documentation-frontend-develop
+  only:
+    - develop
+  script:
+    - cp ./devops/dev/docker-compose.yml ./docker-compose.yml
+    - cp ./devops/dev/.env ./.env
+    - docker container rm documentation-frontend -f
+    - docker image rm documentation-frontend -f
+    - docker-compose up --build -d
+prod:
+  stage: prod
+  tags:
+    - documentation-frontend-master
+  only:
+    - master
+  script:
+    - cp ./devops/prod/docker-compose.yml ./docker-compose.yml
+    - cp ./devops/prod/.env ./.env
+    - docker container rm documentation-frontend -f
+    - docker image rm documentation-frontend -f
+    - docker-compose up --build -d

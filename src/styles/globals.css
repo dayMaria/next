@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.visor {
+	min-height: 100%;
+}
+
+.visor * {
+	height: 100%;
+	width: 100%;
+}
+
+.visor .react-pdf__Page__svg {
+	height: max-content !important;
+	width: inherit !important;
+}
+
+.visor svg {
+	height: max-content !important;
+	width: inherit !important;
+}
+
+.visor-cover {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 20px;
+	background-color: transparent;
+}
+
+.visor-wrapper {
+	height: 100%;
+	position: relative;
+	overflow: hidden;
+}
+
+@media print {
+	.visor-wrapper {
+		display: none;
+	}
+}

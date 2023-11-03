@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Table from "../components/Table";
 import { Visibility } from "@mui/icons-material";
 import { IconButton, Stack, TextField, Button } from "@mui/material";
@@ -33,14 +34,28 @@ const columns = [
 	},
 ];
 export default function CaseStudyTable({ data }) {
+	const [searchTerm, setSearchTerm] = useState("");
+
+	const filteredData = searchTerm
+		? data.filter(caseStudy => {
+				const { name } = caseStudy;
+				const searchValue = searchTerm.toLowerCase();
+				return name && name.toLowerCase().includes(searchValue);
+		  })
+		: data;
+
 	return (
 		<Table
 			columns={columns}
-			data={data}
+			data={filteredData}
 			title="Estudios de casos"
 			actions={
 				<Stack direction="row" spacing={2}>
-					<TextField placeholder="Search" />
+					<TextField
+						placeholder="Search"
+						value={searchTerm}
+						onChange={e => setSearchTerm(e.target.value)}
+					/>
 					<Button
 						startIcon={<Add />}
 						href="/case-studies/add"

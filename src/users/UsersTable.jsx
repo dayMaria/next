@@ -1,43 +1,44 @@
 import { useState } from "react";
 import { Stack, TextField } from "@mui/material";
 import Table from "../components/Table";
-import AddAnalysisUnit from "./AddAnalysisUnit";
-import EditAnalysisUnit from "./EditAnalysisUnit";
+import AddUsers from "./AddUsers";
+import EditUsers from "./EditUsers";
 
 const columns = [
 	{
-		title: "Nombre",
-		key: "name",
+		title: "Nombre de usuario",
+		key: "username",
 	},
 	{
-		title: "Descripción",
-		key: "description",
+		title: "Contraseña",
+		key: "password",
 	},
 	{
 		title: "Acciones",
 		width: 1,
 		render: obj => (
 			<Stack direction="row" spacing={1}>
-				<EditAnalysisUnit analysisUnit={obj} />
+				<EditUsers users={obj} />
 			</Stack>
 		),
 	},
 ];
-export default function AnalysisUnitTable({ data }) {
+export default function UsersTable({ data }) {
 	const [searchTerm, setSearchTerm] = useState("");
 
 	const filteredData = searchTerm
-		? data.filter(analysisUnit => {
-				const { name } = analysisUnit;
+		? data.filter(user => {
+				const { username } = user;
 				const searchValue = searchTerm.toLowerCase();
-				return name && name.toLowerCase().includes(searchValue);
+				return username && username.toLowerCase().includes(searchValue);
 		  })
 		: data;
+
 	return (
 		<Table
 			columns={columns}
 			data={filteredData}
-			title="Unidad de análisis"
+			title="Usuarios"
 			actions={
 				<Stack direction="row" spacing={2}>
 					<TextField
@@ -45,7 +46,7 @@ export default function AnalysisUnitTable({ data }) {
 						value={searchTerm}
 						onChange={e => setSearchTerm(e.target.value)}
 					/>
-					<AddAnalysisUnit />
+					<AddUsers />
 				</Stack>
 			}
 		/>

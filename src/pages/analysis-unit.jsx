@@ -5,10 +5,14 @@ import AnalysisUnitTable from "../analysis-unit/AnalysisUnitTable";
 const rows = [
 	{
 		name: "Documentos estimados del 2023",
+		description:
+			"En este ejemplo, utilizamos el hook useState para definir el estado name y la función setName para actualizar su valor.",
 		id: 1,
 	},
 	{
 		name: "Analisis de datos",
+		description:
+			"En este ejemplo, utilizamos el hook useState para definir el estado name y la función setName para actualizar su valor.",
 		id: 2,
 	},
 ];

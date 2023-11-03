@@ -15,7 +15,7 @@ const rows = [
 		name: "Proyectos de investigaciones 2021-2023",
 		commitDate: "25-03-2010",
 		endDate: "01-12-2023",
-		id: 1,
+		id: 2,
 	},
 ];
 

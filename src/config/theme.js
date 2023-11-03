@@ -156,7 +156,7 @@ const theme = createTheme({
       black: '#13505B'
     },
     primary: {
-      main: "#78CAD2"
+      main: "#5C9AA2"
     },
     text: {
       primary: "rgba(17, 24, 39, 1)+"

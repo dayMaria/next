@@ -1,17 +1,10 @@
 import { DesktopDatePicker } from "@mui/lab";
-import {
-	IconButton,
-	Stack,
-	Tab,
-	Tabs,
-	TextField,
-	TextareaAutosize,
-} from "@mui/material";
+import { Stack, Tab, Tabs, TextField, TextareaAutosize } from "@mui/material";
 import useSetList from "../common/form/useUniqueList";
 import useUniqueList from "../common/form/useUniqueList";
 import SelectContextTable from "./SelectContextTable";
 import SelectUsersTable from "./SelectUsersTable";
-import { Add } from "@mui/icons-material";
+import AddYears from "./AddYears";
 
 export default function CaseStudyForm() {
 	const { selected: years, addOrRemove: addOrRemoveYear } = useUniqueList({});
@@ -29,7 +22,26 @@ export default function CaseStudyForm() {
 						renderInput={props => <TextField {...props} />}
 					/>
 				</Stack>
-				<TextField label="Descripcion" />
+				<TextareaAutosize
+					style={{
+						width: "1300px",
+						fontFamily: "IBM Plex Sans, sans-serif",
+						fontSize: "0.875rem",
+						fontWeight: 400,
+						lineHeight: 1.5,
+						padding: "18px 12px",
+						color: "#C7D0DD",
+						border: "1px solid",
+						borderColor: "#BBC5C8",
+						outline: 0,
+						color: "black",
+						borderRadius: "4px",
+					}}
+					onChange={ev => setDescription(ev.target.value)}
+					maxRows={4}
+					aria-label="maximum height"
+					placeholder="Descripción"
+				/>
 			</Stack>
 			<Tabs>
 				<Tab label="2023" />
@@ -40,9 +52,7 @@ export default function CaseStudyForm() {
 						justifyContent: "center",
 					}}
 				>
-					<IconButton>
-						<Add />
-					</IconButton>
+					<AddYears />
 				</div>
 			</Tabs>
 			<SelectContextTable data={[]} />

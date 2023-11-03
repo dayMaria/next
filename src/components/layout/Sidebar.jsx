@@ -26,7 +26,31 @@ export default function Sidebar() {
 			/>
 			<NavLink href="/users" Icon={Preview} label="Usuarios" />
 			<NavLinkCollapse Icon={Preview} label="Reportes">
-				<NavLink href="/" Icon={Preview} label="Reporte 1" />
+				<NavLink
+					href="/reports/repo1"
+					Icon={Preview}
+					label="Unidades de análisis, contextos y estudios de casos asociados por tipo de evidencia"
+				/>
+				<NavLink
+					href="/reports/repo2"
+					Icon={Preview}
+					label="Contextos, unidades de análisis y tipos de evidencias asociados"
+				/>
+				<NavLink
+					href="/reports/repo3"
+					Icon={Preview}
+					label="Contextos y estudios de casos asociados por período de tiempo"
+				/>
+				<NavLink
+					href="/reports/repo4"
+					Icon={Preview}
+					label="Unidades de análisis y estudios de casos asociados por contextos"
+				/>
+				<NavLink
+					href="/reports/repo5"
+					Icon={Preview}
+					label="Estudios de casos por tipo de evidencia"
+				/>
 			</NavLinkCollapse>
 		</Stack>
 	);

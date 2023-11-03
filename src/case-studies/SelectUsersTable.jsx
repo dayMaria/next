@@ -22,7 +22,7 @@ export default function SelectUsersTable({ data }) {
 		<Table
 			actions={
 				<Button startIcon={<Add />} variant="contained">
-					Add
+					Añadir
 				</Button>
 			}
 			columns={columns}

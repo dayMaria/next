@@ -5,10 +5,14 @@ import ContextTable from "../context/ContextTable";
 const rows = [
 	{
 		name: "Observacion",
+		description:
+			"En este ejemplo, utilizamos el hook useState para definir el estado name y la función setName para actualizar su valor.",
 		id: 1,
 	},
 	{
 		name: "Analisis de documentos",
+		description:
+			"En este ejemplo, utilizamos el hook useState para definir el estado name y la función setName para actualizar su valor.",
 		id: 2,
 	},
 ];

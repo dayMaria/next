@@ -5,9 +5,11 @@ import useUniqueList from "../common/form/useUniqueList";
 import SelectContextTable from "./SelectContextTable";
 import SelectUsersTable from "./SelectUsersTable";
 import AddYears from "./AddYears";
+import { useState, useEffect } from "react";
 
 export default function CaseStudyForm() {
 	const { selected: years, addOrRemove: addOrRemoveYear } = useUniqueList({});
+
 	return (
 		<Stack spacing={2}>
 			<Stack spacing={1}>

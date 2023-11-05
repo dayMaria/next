@@ -8,19 +8,43 @@ import {
 	TextareaAutosize,
 } from "@mui/material";
 import { Add } from "@mui/icons-material";
-import useToggle from "../hooks/useToggle";
 import { useState } from "react";
 export default function AddContext() {
 	const [name, setName] = useState("");
 	const [description, setDescription] = useState("");
-	const [open, toggle] = useToggle();
+	const [submitted, setSubmitted] = useState(false);
+	const [open, setOpen] = useState(false);
+
+	const toggle = () => {
+		if (submitted) {
+			setName("");
+			setDescription("");
+			setSubmitted(false);
+		}
+		setOpen(!open);
+	};
+
+	const handleSubmit = () => {
+		// Aquí puedes realizar acciones adicionales antes de enviar el formulario, si es necesario.
+		setSubmitted(true);
+		setOpen(false);
+	};
+
+	const handleClose = () => {
+		if (submitted) {
+			setName("");
+			setDescription("");
+			setSubmitted(false);
+		}
+		setOpen(false);
+	};
 
 	return (
 		<>
 			<Button startIcon={<Add />} variant="contained" onClick={toggle}>
 				Añadir
 			</Button>
-			<Dialog open={open}>
+			<Dialog open={open} onClose={handleClose}>
 				<DialogTitle> Añadir contexto</DialogTitle>
 				<DialogContent>
 					<TextField
@@ -54,7 +78,7 @@ export default function AddContext() {
 				</DialogContent>
 				<DialogActions>
 					<Button onClick={toggle}>Cancelar</Button>
-					<Button disabled={!name} onClick={toggle} variant="contained">
+					<Button disabled={!name} onClick={handleSubmit} variant="contained">
 						Añadir
 					</Button>
 				</DialogActions>

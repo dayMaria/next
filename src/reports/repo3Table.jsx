@@ -12,17 +12,6 @@ const columns = [
 		title: "Contextos",
 		key: "context",
 	},
-	{
-		title: "Acciones",
-		width: 1,
-		render: obj => (
-			<Stack direction="row" spacing={1}>
-				<IconButton>
-					<Visibility />
-				</IconButton>
-			</Stack>
-		),
-	},
 ];
 
 export default function Repo3Table({ data }) {

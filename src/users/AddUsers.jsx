@@ -12,14 +12,39 @@ import { useState } from "react";
 export default function AddUsers() {
 	const [name, setName] = useState("");
 	const [passport, setPassport] = useState("");
-	const [open, toggle] = useToggle();
+	const [submitted, setSubmitted] = useState(false);
+	const [open, setOpen] = useState(false);
+
+	const toggle = () => {
+		if (submitted) {
+			setName("");
+			setPassport("");
+			setSubmitted(false);
+		}
+		setOpen(!open);
+	};
+
+	const handleSubmit = () => {
+		// Aquí puedes realizar acciones adicionales antes de enviar el formulario, si es necesario.
+		setSubmitted(true);
+		setOpen(false);
+	};
+
+	const handleClose = () => {
+		if (submitted) {
+			setName("");
+			setPassport("");
+			setSubmitted(false);
+		}
+		setOpen(false);
+	};
 
 	return (
 		<>
 			<Button startIcon={<Add />} variant="contained" onClick={toggle}>
 				Añadir
 			</Button>
-			<Dialog open={open}>
+			<Dialog open={open} onClose={handleClose}>
 				<DialogTitle> Añadir usuario</DialogTitle>
 				<DialogContent>
 					<TextField
@@ -42,7 +67,7 @@ export default function AddUsers() {
 					<Button onClick={toggle}>Cancelar</Button>
 					<Button
 						disabled={!passport || !name}
-						onClick={toggle}
+						onClick={handleSubmit}
 						variant="contained"
 					>
 						Añadir

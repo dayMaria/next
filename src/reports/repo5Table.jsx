@@ -8,17 +8,6 @@ const columns = [
 		title: "Estudios de caso",
 		key: "caseStudy",
 	},
-	{
-		title: "Acciones",
-		width: 1,
-		render: obj => (
-			<Stack direction="row" spacing={1}>
-				<IconButton>
-					<Visibility />
-				</IconButton>
-			</Stack>
-		),
-	},
 ];
 
 export default function Repo1Table({ data }) {

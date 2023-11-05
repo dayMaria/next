@@ -1,6 +1,7 @@
 import { Add, Delete } from "@mui/icons-material";
 import { Button, IconButton, Stack } from "@mui/material";
 import Table from "../components/Table";
+import AddSelectContextTable from "./AddSelectContextTable";
 
 const columns = [
 	{
@@ -26,11 +27,7 @@ const columns = [
 export default function SelectContextTable({ data }) {
 	return (
 		<Table
-			actions={
-				<Button startIcon={<Add />} variant="contained">
-					Añadir
-				</Button>
-			}
+			actions={<AddSelectContextTable />}
 			columns={columns}
 			data={data}
 			title="Contextos asociados"

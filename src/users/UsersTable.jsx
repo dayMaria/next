@@ -10,8 +10,8 @@ const columns = [
 		key: "username",
 	},
 	{
-		title: "Contraseña",
-		key: "password",
+		title: "Rol",
+		key: "rol",
 	},
 	{
 		title: "Acciones",

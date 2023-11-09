@@ -10,9 +10,15 @@ import {
 	TextField,
 } from "@mui/material";
 import { Edit } from "@mui/icons-material";
+import useEditUsers from "./useEditUsers";
 export default function EditUsers({ users }) {
-	const [passport, setPassport] = useState(users.passport);
+	const [rol, setRol] = useState(users.rol);
 	const [open, toggle] = useToggle();
+	const [mutateAsync, loading] = useEditUsers(users.id);
+
+	const handleSubmit = () => {
+		mutateAsync({ rol }).then(toggle);
+	};
 
 	return (
 		<>
@@ -23,17 +29,20 @@ export default function EditUsers({ users }) {
 				<DialogTitle> Editar usuario</DialogTitle>
 				<DialogContent>
 					<TextField
-						label="Contraseña"
-						type="password"
-						onChange={ev => setPassport(ev.target.value)}
+						label="Rol"
+						onChange={ev => setRol(ev.target.value)}
 						required
-						value={passport}
+						value={rol}
 						style={{ marginBottom: "20px" }}
 					/>
 				</DialogContent>
 				<DialogActions>
 					<Button onClick={toggle}>Cancelar</Button>
-					<Button disabled={!passport} onClick={toggle} variant="contained">
+					<Button
+						disabled={!rol || loading}
+						onClick={handleSubmit}
+						variant="contained"
+					>
 						Añadir
 					</Button>
 				</DialogActions>

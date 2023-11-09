@@ -1,5 +1,6 @@
 import {
 	Button,
+	IconButton,
 	Dialog,
 	DialogActions,
 	DialogContent,
@@ -7,66 +8,67 @@ import {
 	TextField,
 } from "@mui/material";
 import { Add } from "@mui/icons-material";
-import useToggle from "../hooks/useToggle";
 import { useState } from "react";
+import useAddUsers from "./useAddUsers";
 export default function AddUsers() {
-	const [name, setName] = useState("");
-	const [passport, setPassport] = useState("");
-	const [submitted, setSubmitted] = useState(false);
+	const [username, setName] = useState("");
+	const [password, setPassword] = useState("");
+	const [rol, setRol] = useState("");
 	const [open, setOpen] = useState(false);
-
-	const toggle = () => {
-		if (submitted) {
-			setName("");
-			setPassport("");
-			setSubmitted(false);
-		}
-		setOpen(!open);
-	};
+	const [mutateAsync, loading] = useAddUsers();
 
 	const handleSubmit = () => {
 		// Aquí puedes realizar acciones adicionales antes de enviar el formulario, si es necesario.
-		setSubmitted(true);
-		setOpen(false);
+		mutateAsync({ username, password, rol }).then(() => {
+			setName("");
+			setPassword("");
+			setRol("");
+			setOpen(false);
+		});
 	};
 
 	const handleClose = () => {
-		if (submitted) {
-			setName("");
-			setPassport("");
-			setSubmitted(false);
-		}
+		setName("");
+		setPassword("");
+		setRol("");
 		setOpen(false);
 	};
 
 	return (
 		<>
-			<Button startIcon={<Add />} variant="contained" onClick={toggle}>
-				Añadir
-			</Button>
-			<Dialog open={open} onClose={handleClose}>
+			<IconButton onClick={() => setOpen(true)}>
+				<Add />
+			</IconButton>
+			<Dialog open={open}>
 				<DialogTitle> Añadir usuario</DialogTitle>
 				<DialogContent>
 					<TextField
 						label="Nombre de usuario"
 						onChange={ev => setName(ev.target.value)}
 						required
-						value={name}
+						value={username}
 						style={{ marginBottom: "20px" }}
 					/>
 					<TextField
 						label="Contraseña"
 						type="password"
-						onChange={ev => setPassport(ev.target.value)}
+						onChange={ev => setPassword(ev.target.value)}
 						required
-						value={passport}
+						value={password}
+						style={{ marginBottom: "20px" }}
+					/>
+					<TextField
+						label="Rol"
+						onChange={ev => setRol(ev.target.value)}
+						required
+						value={rol}
 						style={{ marginBottom: "20px" }}
 					/>
 				</DialogContent>
 				<DialogActions>
-					<Button onClick={toggle}>Cancelar</Button>
+					<Button onClick={handleClose}>Cancelar</Button>
 					<Button
-						disabled={!passport || !name}
+						disabled={!password || !username || !rol || loading}
 						onClick={handleSubmit}
 						variant="contained"
 					>

@@ -3,33 +3,34 @@ import { Button, IconButton, Stack } from "@mui/material";
 import Table from "../components/Table";
 import AddSelectContextTable from "./AddSelectContextTable";
 
-const columns = [
-	{
-		title: "Nombre",
-		key: "name",
-		width: 11,
-	},
-	{
-		title: "Acciones",
-		render: obj => (
-			<Stack direction="row" spacing={1}>
-				<IconButton>
-					<Add />
-				</IconButton>
-				<IconButton>
-					<Delete />
-				</IconButton>
-			</Stack>
-		),
-	},
-];
-
-export default function SelectContextTable({ data }) {
+export default function SelectContextTable({ contexts, onToggle }) {
+	const columns = [
+		{
+			title: "Nombre",
+			key: "name",
+			width: 11,
+		},
+		{
+			title: "Acciones",
+			render: obj => (
+				<Stack direction="row" spacing={1}>
+					<IconButton>
+						<Add />
+					</IconButton>
+					<IconButton>
+						<Delete onClick={() => onToggle(obj)} />
+					</IconButton>
+				</Stack>
+			),
+		},
+	];
 	return (
 		<Table
-			actions={<AddSelectContextTable />}
+			actions={
+				<AddSelectContextTable contexts={contexts} onToggle={onToggle} />
+			}
 			columns={columns}
-			data={data}
+			data={contexts}
 			title="Contextos asociados"
 		/>
 	);

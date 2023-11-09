@@ -1,20 +1,20 @@
-import {QueryClient, QueryClientProvider} from "react-query";
-import {ReactQueryDevtools} from "react-query/devtools"
+import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
 
 const client = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: false,
-      suspense: true
-    },
-  },
+	defaultOptions: {
+		queries: {
+			refetchOnWindowFocus: false,
+			suspense: false,
+		},
+	},
 });
 
-const ReactQueryProvider = ({children}) => (
-  <QueryClientProvider client={client}>
-    {children}
-    <ReactQueryDevtools />
-  </QueryClientProvider>
-)
+const ReactQueryProvider = ({ children }) => (
+	<QueryClientProvider client={client}>
+		{children}
+		<ReactQueryDevtools />
+	</QueryClientProvider>
+);
 
-export default ReactQueryProvider
+export default ReactQueryProvider;

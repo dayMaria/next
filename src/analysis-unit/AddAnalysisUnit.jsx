@@ -8,44 +8,39 @@ import {
 	TextareaAutosize,
 } from "@mui/material";
 import { Add } from "@mui/icons-material";
-import useToggle from "../hooks/useToggle";
 import { useState } from "react";
+import useAddAnalysisUnit from "./useAddAnalysisUnit";
 export default function AddAnalysisUnit() {
 	const [name, setName] = useState("");
 	const [description, setDescription] = useState("");
-	const [submitted, setSubmitted] = useState(false);
 	const [open, setOpen] = useState(false);
-
-	const toggle = () => {
-		if (submitted) {
-			setName("");
-			setDescription("");
-			setSubmitted(false);
-		}
-		setOpen(!open);
-	};
+	const [mutateAsync, loading] = useAddAnalysisUnit();
 
 	const handleSubmit = () => {
 		// Aquí puedes realizar acciones adicionales antes de enviar el formulario, si es necesario.
-		setSubmitted(true);
-		setOpen(false);
+		mutateAsync({ name, description }).then(() => {
+			setName("");
+			setDescription("");
+			setOpen(false);
+		});
 	};
 
 	const handleClose = () => {
-		if (submitted) {
-			setName("");
-			setDescription("");
-			setSubmitted(false);
-		}
+		setName("");
+		setDescription("");
 		setOpen(false);
 	};
 
 	return (
 		<>
-			<Button startIcon={<Add />} variant="contained" onClick={toggle}>
+			<Button
+				startIcon={<Add />}
+				variant="contained"
+				onClick={() => setOpen(true)}
+			>
 				Añadir
 			</Button>
-			<Dialog open={open} onClose={handleClose}>
+			<Dialog open={open}>
 				<DialogTitle> Añadir unidades de análisis</DialogTitle>
 				<DialogContent>
 					<TextField
@@ -78,8 +73,12 @@ export default function AddAnalysisUnit() {
 					/>
 				</DialogContent>
 				<DialogActions>
-					<Button onClick={toggle}>Cancelar</Button>
-					<Button disabled={!name} onClick={handleSubmit} variant="contained">
+					<Button onClick={handleClose}>Cancelar</Button>
+					<Button
+						disabled={!name || loading}
+						onClick={handleSubmit}
+						variant="contained"
+					>
 						Añadir
 					</Button>
 				</DialogActions>

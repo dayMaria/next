@@ -11,10 +11,17 @@ import {
 	TextareaAutosize,
 } from "@mui/material";
 import { Edit } from "@mui/icons-material";
+import useEditContext from "./useEditContext";
+
 export default function EditContext({ context }) {
 	const [name, setName] = useState(context.name);
 	const [description, setDescription] = useState(context.description);
+	const [mutateAsync, loading] = useEditContext(context.id);
 	const [open, toggle] = useToggle();
+
+	const handleSubmit = () => {
+		mutateAsync({ name, description }).then(toggle);
+	};
 
 	return (
 		<>
@@ -55,7 +62,11 @@ export default function EditContext({ context }) {
 				</DialogContent>
 				<DialogActions>
 					<Button onClick={toggle}>Cancelar</Button>
-					<Button disabled={!name} onClick={toggle} variant="contained">
+					<Button
+						disabled={!name || loading}
+						onClick={handleSubmit}
+						variant="contained"
+					>
 						Añadir
 					</Button>
 				</DialogActions>

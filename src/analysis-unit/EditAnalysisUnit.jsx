@@ -11,10 +11,16 @@ import {
 	TextareaAutosize,
 } from "@mui/material";
 import { Edit } from "@mui/icons-material";
+import useEditAnalysisUnit from "./useEditAnalysisUnit";
 export default function EditAnalysisUnit({ analysisUnit }) {
 	const [name, setName] = useState(analysisUnit.name);
 	const [description, setDescription] = useState(analysisUnit.description);
+	const [mutateAsync, loading] = useEditAnalysisUnit(analysisUnit.id);
 	const [open, toggle] = useToggle();
+
+	const handleSubmit = () => {
+		mutateAsync({ name, description }).then(toggle);
+	};
 
 	return (
 		<>
@@ -55,7 +61,11 @@ export default function EditAnalysisUnit({ analysisUnit }) {
 				</DialogContent>
 				<DialogActions>
 					<Button onClick={toggle}>Cancelar</Button>
-					<Button disabled={!name} onClick={toggle} variant="contained">
+					<Button
+						disabled={!name || loading}
+						onClick={handleSubmit}
+						variant="contained"
+					>
 						Añadir
 					</Button>
 				</DialogActions>

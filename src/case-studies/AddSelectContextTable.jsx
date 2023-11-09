@@ -7,76 +7,44 @@ import {
 	Checkbox,
 	Stack,
 	FormControlLabel,
+	IconButton,
+	CircularProgress,
 } from "@mui/material";
 import { Add } from "@mui/icons-material";
 import { useState } from "react";
 import AddContext from "../context/AddContext";
+import useContexts from "../context/useContexts";
+import useUniqueList from "../common/form/useUniqueList";
 
-export default function AddSelectContextTable() {
-	const [submitted, setSubmitted] = useState(false);
+export default function AddSelectContextTable({ contexts, onToggle }) {
 	const [open, setOpen] = useState(false);
-	const [checkboxValues, setCheckboxValues] = useState({
-		hello: false,
-		prueba: false,
-		operaciones: false,
-		analisis: false,
-	});
+	const [items, loading] = useContexts();
 	const [searchTerm, setSearchTerm] = useState("");
 
 	const toggle = () => {
-		if (submitted) {
-			setSubmitted(false);
-		}
 		setOpen(!open);
 	};
 
 	const handleSubmit = () => {
-		// Aquí puedes realizar acciones adicionales antes de enviar el formulario, si es necesario.
-		setSubmitted(true);
 		setOpen(false);
-		setCheckboxValues({
-			hello: false,
-			prueba: false,
-			operaciones: false,
-			analisis: false,
-		});
 	};
 
 	const handleClose = () => {
-		if (submitted) {
-			setSubmitted(false);
-		}
 		setOpen(false);
-		setCheckboxValues({
-			hello: false,
-			prueba: false,
-			operaciones: false,
-			analisis: false,
-		});
 		setSearchTerm("");
-	};
-
-	const handleCheckboxChange = event => {
-		const { name, checked } = event.target;
-		setCheckboxValues(prevValues => ({
-			...prevValues,
-			[name]: checked,
-		}));
 	};
 
 	const handleSearchChange = event => {
 		setSearchTerm(event.target.value);
 	};
 
-	const filteredCheckboxes = Object.keys(checkboxValues).filter(key =>
-		key.toLowerCase().includes(searchTerm.toLowerCase())
-	);
+	const filteredCheckboxes = items.filter(x => x.name.includes(searchTerm));
 
 	return (
 		<>
-			<Button startIcon={<Add />} variant="contained" onClick={toggle}>
-				Añadir
-			</Button>
+			<IconButton onClick={toggle}>
+				<Add />
+			</IconButton>
 			<Dialog open={open} onClose={handleClose}>
 				<DialogContent>
 					<Stack direction="row" spacing={2} style={{ marginTop: 10 }}>
@@ -101,19 +69,23 @@ export default function AddSelectContextTable() {
 							overflowY: "scroll",
 						}}
 					>
-						{filteredCheckboxes.map(key => (
-							<FormControlLabel
-								key={key}
-								label={key}
-								control={
-									<Checkbox
-										name={key}
-										checked={checkboxValues[key]}
-										onChange={handleCheckboxChange}
-									/>
-								}
-							/>
-						))}
+						{loading ? (
+							<CircularProgress />
+						) : (
+							filteredCheckboxes.map(x => (
+								<FormControlLabel
+									key={x.id}
+									className="hover:bg-gray-100 w-full"
+									label={x.name}
+									control={
+										<Checkbox
+											checked={contexts.some(c => c.id === x.id)}
+											onChange={() => onToggle(x)}
+										/>
+									}
+								/>
+							))
+						)}
 					</Stack>
 				</DialogContent>
 				<DialogActions>

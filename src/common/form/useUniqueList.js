@@ -1,16 +1,8 @@
 import { useState } from "react";
 
 const defaultComparisonFunction = (a, b) => {
-  if (a !== null && b !== null) {
-    if (typeof a === "object" && typeof b === "object") {
-      if (Object.keys(a).some(k => k === "id") && Object.keys(b).some(k => k === "id")) {
-        // @ts-ignore
-        return a.id === b.id;
-      } else if (Object.keys(a).some(k => k === "_id") && Object.keys(b).some(k => k === "_id")) {
-        // @ts-ignore
-        return a._id === b._id;
-      }
-    }
+  if (a !== null && b !== null && a.id && b.id) {
+    return a._id === b._id;
   }
   return a === b;
 };

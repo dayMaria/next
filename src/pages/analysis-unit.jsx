@@ -1,30 +1,18 @@
+import { CircularProgress } from "@mui/material";
 import Head from "next/head";
 import PageContainer from "../components/layout/PageContainer";
 import AnalysisUnitTable from "../analysis-unit/AnalysisUnitTable";
-
-const rows = [
-	{
-		name: "Documentos estimados del 2023",
-		description:
-			"En este ejemplo, utilizamos el hook useState para definir el estado name y la función setName para actualizar su valor.",
-		id: 1,
-	},
-	{
-		name: "Analisis de datos",
-		description:
-			"En este ejemplo, utilizamos el hook useState para definir el estado name y la función setName para actualizar su valor.",
-		id: 2,
-	},
-];
+import useAnalysisUnits from "../analysis-unit/useAnalysisUnits";
 
 export default function AnalysisUnit() {
+	const [items, loading] = useAnalysisUnits();
 	return (
 		<>
 			<Head>
 				<title>{process.env.NEXT_PUBLIC_APP_NAME} - AnalysisUnit</title>
 			</Head>
 			<PageContainer>
-				<AnalysisUnitTable data={rows} />
+				{loading ? <CircularProgress /> : <AnalysisUnitTable data={items} />}
 			</PageContainer>
 		</>
 	);

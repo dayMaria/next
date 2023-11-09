@@ -10,30 +10,25 @@ import {
 } from "@mui/material";
 import useToggle from "../hooks/useToggle";
 import { useState } from "react";
-export default function AddYears() {
+export default function AddYears({ onAdd }) {
 	const [year, setYear] = useState("");
 	const [submitted, setSubmitted] = useState(false);
 	const [open, setOpen] = useState(false);
 
 	const toggle = () => {
-		if (submitted) {
-			setYear("");
-			setSubmitted(false);
-		}
+		setYear("");
 		setOpen(!open);
 	};
 
 	const handleSubmit = () => {
 		// Aquí puedes realizar acciones adicionales antes de enviar el formulario, si es necesario.
-		setSubmitted(true);
+		onAdd(year);
+		setYear("");
 		setOpen(false);
 	};
 
 	const handleClose = () => {
-		if (submitted) {
-			setYear("");
-			setSubmitted(false);
-		}
+		setYear("");
 		setOpen(false);
 	};
 

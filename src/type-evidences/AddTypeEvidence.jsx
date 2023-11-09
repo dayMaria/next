@@ -7,12 +7,11 @@ import {
 	TextField,
 } from "@mui/material";
 import { Add } from "@mui/icons-material";
-import useToggle from "../hooks/useToggle";
 import { useState } from "react";
 export default function AddTypeEvidence() {
 	const [name, setName] = useState("");
-	const [submitted, setSubmitted] = useState(false);
 	const [open, setOpen] = useState(false);
+	const [mutateAsync, loading] = useAddContext();
 
 	const toggle = () => {
 		if (submitted) {

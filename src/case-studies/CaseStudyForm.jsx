@@ -5,10 +5,27 @@ import useUniqueList from "../common/form/useUniqueList";
 import SelectContextTable from "./SelectContextTable";
 import SelectUsersTable from "./SelectUsersTable";
 import AddYears from "./AddYears";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 export default function CaseStudyForm() {
-	const { selected: years, addOrRemove: addOrRemoveYear } = useUniqueList({});
+	const { state: years, addOrRemove: addOrRemoveYear } = useUniqueList({});
+	const { state: contexts, addOrRemove: addOrRemoveContext } = useUniqueList({
+		comparisonFunction: (a, b) => a.year === b.year && a.id === b.id,
+	});
+	const [tab, setTab] = useState("");
+	const [selectedYear, setSelectedYear] = useState();
+	const [startDate, setStartDate] = useState("");
+	const [endDate, setEndDate] = useState("");
+
+	const handleStartDateChange = date => {
+		setStartDate(date);
+	};
+
+	const handleEndDateChange = date => {
+		setEndDate(date);
+	};
+
+	const isEndDateInvalid = endDate && startDate > endDate;
 
 	return (
 		<Stack spacing={2}>
@@ -17,11 +34,25 @@ export default function CaseStudyForm() {
 					<TextField label="Nombre" required />
 					<DesktopDatePicker
 						label="Fecha inicio"
-						renderInput={props => <TextField {...props} />}
+						value={startDate}
+						onChange={handleStartDateChange}
+						renderInput={props => <TextField {...props} error={false} />}
 					/>
 					<DesktopDatePicker
 						label="Fecha fin"
-						renderInput={props => <TextField {...props} />}
+						value={endDate}
+						onChange={handleEndDateChange}
+						renderInput={props => (
+							<TextField
+								{...props}
+								error={isEndDateInvalid}
+								helperText={
+									isEndDateInvalid
+										? "La fecha de fin no puede ser anterior a la fecha de inicio"
+										: ""
+								}
+							/>
+						)}
 					/>
 				</Stack>
 				<TextareaAutosize
@@ -45,19 +76,27 @@ export default function CaseStudyForm() {
 					placeholder="Descripción"
 				/>
 			</Stack>
-			<Tabs>
-				<Tab label="2023" />
+			<Tabs onChange={(_, newTab) => setTab(newTab)} value={tab}>
+				{years.map(x => (
+					<Tab key={x} label={x} onClick={() => setSelectedYear(x)} />
+				))}
 				<div
 					style={{
 						display: "flex",
 						alignItems: "center",
 						justifyContent: "center",
 					}}
+					onClick={() => setTab(tab)}
 				>
-					<AddYears />
+					<AddYears onAdd={addOrRemoveYear} />
 				</div>
 			</Tabs>
-			<SelectContextTable data={[]} />
+			{selectedYear && (
+				<SelectContextTable
+					contexts={contexts.filter(x => x.year === selectedYear)}
+					onToggle={x => addOrRemoveContext({ ...x, year: selectedYear })}
+				/>
+			)}
 			<SelectUsersTable data={[]} />
 		</Stack>
 	);

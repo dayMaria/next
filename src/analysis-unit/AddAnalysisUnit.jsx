@@ -1,5 +1,6 @@
 import {
 	Button,
+	IconButton,
 	Dialog,
 	DialogActions,
 	DialogContent,
@@ -33,13 +34,9 @@ export default function AddAnalysisUnit() {
 
 	return (
 		<>
-			<Button
-				startIcon={<Add />}
-				variant="contained"
-				onClick={() => setOpen(true)}
-			>
-				Añadir
-			</Button>
+			<IconButton onClick={() => setOpen(true)}>
+				<Add />
+			</IconButton>
 			<Dialog open={open}>
 				<DialogTitle> Añadir unidades de análisis</DialogTitle>
 				<DialogContent>

@@ -1,32 +1,18 @@
-import Link from "next/link";
-import Table from "../../components/Table";
 import Head from "next/head";
 import PageContainer from "../../components/layout/PageContainer";
 import CaseStudyTable from "../../case-studies/CaseStudyTable";
-
-const rows = [
-	{
-		name: "Proyectos actualizados 2021-2023",
-		commitDate: "25-03-2010",
-		endDate: "01-12-2023",
-		id: 1,
-	},
-	{
-		name: "Proyectos de investigaciones 2021-2023",
-		commitDate: "25-03-2010",
-		endDate: "01-12-2023",
-		id: 2,
-	},
-];
+import { CircularProgress } from "@mui/material";
+import useCaseStudy from "../../case-studies/useCaseStudy";
 
 export default function CaseStudysIndex() {
+	const [items, loading] = useCaseStudy();
 	return (
 		<>
 			<Head>
 				<title>{process.env.NEXT_PUBLIC_APP_NAME} - Estudios de casos</title>
 			</Head>
 			<PageContainer>
-				<CaseStudyTable data={rows} />
+				{loading ? <CircularProgress /> : <CaseStudyTable data={items} />}
 			</PageContainer>
 		</>
 	);

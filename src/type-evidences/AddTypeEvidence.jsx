@@ -1,5 +1,6 @@
 import {
 	Button,
+	IconButton,
 	Dialog,
 	DialogActions,
 	DialogContent,
@@ -8,38 +9,30 @@ import {
 } from "@mui/material";
 import { Add } from "@mui/icons-material";
 import { useState } from "react";
+import useAddTypeEvidence from "./useAddTypeEvidence";
 export default function AddTypeEvidence() {
 	const [name, setName] = useState("");
 	const [open, setOpen] = useState(false);
-	const [mutateAsync, loading] = useAddContext();
-
-	const toggle = () => {
-		if (submitted) {
-			setName("");
-			setSubmitted(false);
-		}
-		setOpen(!open);
-	};
+	const [mutateAsync, loading] = useAddTypeEvidence();
 
 	const handleSubmit = () => {
 		// Aquí puedes realizar acciones adicionales antes de enviar el formulario, si es necesario.
-		setSubmitted(true);
-		setOpen(false);
+		mutateAsync({ name }).then(() => {
+			setName("");
+			setOpen(false);
+		});
 	};
 
 	const handleClose = () => {
-		if (submitted) {
-			setName("");
-			setSubmitted(false);
-		}
+		setName("");
 		setOpen(false);
 	};
 
 	return (
 		<>
-			<Button startIcon={<Add />} variant="contained" onClick={toggle}>
-				Add
-			</Button>
+			<IconButton onClick={() => setOpen(true)}>
+				<Add />
+			</IconButton>
 			<Dialog open={open} onClose={handleClose}>
 				<DialogTitle> Añadir tipo de evidencia</DialogTitle>
 				<DialogContent>
@@ -51,8 +44,12 @@ export default function AddTypeEvidence() {
 					/>
 				</DialogContent>
 				<DialogActions>
-					<Button onClick={toggle}>Cancelar</Button>
-					<Button disabled={!name} onClick={handleSubmit} variant="contained">
+					<Button onClick={handleClose}>Cancelar</Button>
+					<Button
+						disabled={!name || loading}
+						onClick={handleSubmit}
+						variant="contained"
+					>
 						Añadir
 					</Button>
 				</DialogActions>

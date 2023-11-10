@@ -14,7 +14,6 @@ import { Add } from "@mui/icons-material";
 import { useState } from "react";
 import AddContext from "../context/AddContext";
 import useContexts from "../context/useContexts";
-import useUniqueList from "../common/form/useUniqueList";
 
 export default function AddSelectContextTable({ contexts, onToggle }) {
 	const [open, setOpen] = useState(false);

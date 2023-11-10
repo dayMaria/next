@@ -1,29 +1,32 @@
-import { Add, Delete } from "@mui/icons-material";
-import { Button, IconButton } from "@mui/material";
+import { Delete } from "@mui/icons-material";
+import { IconButton, Stack } from "@mui/material";
 import Table from "../components/Table";
 import AddSelectUsersTable from "./AddSelectUsersTable";
 
-const columns = [
-	{
-		title: "Nombre de usuario",
-		key: "name",
-	},
-	{
-		title: "Acciones",
-		render: obj => (
-			<IconButton>
-				<Delete />
-			</IconButton>
-		),
-	},
-];
+export default function SelectUsersTable({ users, onToggle }) {
+	const columns = [
+		{
+			title: "Nombre de usuario",
+			key: "username",
+			width: 11,
+		},
+		{
+			title: "Acciones",
+			render: obj => (
+				<Stack direction="row" spacing={1}>
+					<IconButton>
+						<Delete onClick={() => onToggle(obj)} />
+					</IconButton>
+				</Stack>
+			),
+		},
+	];
 
-export default function SelectUsersTable({ data }) {
 	return (
 		<Table
-			actions={<AddSelectUsersTable />}
+			actions={<AddSelectUsersTable users={users} onToggle={onToggle} />}
 			columns={columns}
-			data={data}
+			data={users}
 			title="Usuarios asignados"
 		/>
 	);

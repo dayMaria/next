@@ -12,11 +12,11 @@ const columns = [
 	},
 	{
 		title: "Fecha inicio",
-		key: "commitDate",
+		key: "commit_date",
 	},
 	{
 		title: "Fecha fin",
-		key: "endDate",
+		key: "end_date",
 	},
 	{
 		title: "Acciones",
@@ -56,13 +56,9 @@ export default function CaseStudyTable({ data }) {
 						value={searchTerm}
 						onChange={e => setSearchTerm(e.target.value)}
 					/>
-					<Button
-						startIcon={<Add />}
-						href="/case-studies/add"
-						variant="contained"
-					>
-						Añadir
-					</Button>
+					<IconButton href="/case-studies/add">
+						<Add />
+					</IconButton>
 				</Stack>
 			}
 		/>

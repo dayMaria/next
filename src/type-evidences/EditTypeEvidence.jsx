@@ -10,10 +10,16 @@ import {
 	TextField,
 } from "@mui/material";
 import { Edit } from "@mui/icons-material";
+import useEditTypeEvidence from "./useEditTypeEvidence";
 
 export default function EditTypeEvidence({ typeEvidence }) {
 	const [name, setName] = useState(typeEvidence.name);
 	const [open, toggle] = useToggle();
+	const [mutateAsync, loading] = useEditTypeEvidence(typeEvidence.id);
+
+	const handleSubmit = () => {
+		mutateAsync({ name }).then(toggle);
+	};
 
 	return (
 		<>
@@ -32,7 +38,11 @@ export default function EditTypeEvidence({ typeEvidence }) {
 				</DialogContent>
 				<DialogActions>
 					<Button onClick={toggle}>Cancelar</Button>
-					<Button disabled={!name} onClick={toggle} variant="contained">
+					<Button
+						disabled={!name || loading}
+						onClick={handleSubmit}
+						variant="contained"
+					>
 						Editar
 					</Button>
 				</DialogActions>

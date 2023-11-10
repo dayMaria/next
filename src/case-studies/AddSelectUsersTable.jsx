@@ -1,5 +1,6 @@
 import {
 	Button,
+	IconButton,
 	Dialog,
 	DialogActions,
 	DialogContent,
@@ -7,74 +8,42 @@ import {
 	Checkbox,
 	Stack,
 	FormControlLabel,
+	CircularProgress,
 } from "@mui/material";
 import { Add } from "@mui/icons-material";
 import { useState } from "react";
-export default function AddSelectUsersTable() {
-	const [submitted, setSubmitted] = useState(false);
+
+import useUsers from "../users/useUsers";
+
+export default function AddSelectUsersTable({ users, onToggle }) {
 	const [open, setOpen] = useState(false);
-	const [checkboxValues, setCheckboxValues] = useState({
-		robe00andres: false,
-		adriMari34: false,
-		admin: false,
-		pruebaUser: false,
-	});
+	const [items, loading] = useUsers();
 	const [searchTerm, setSearchTerm] = useState("");
 
 	const toggle = () => {
-		if (submitted) {
-			setSubmitted(false);
-		}
 		setOpen(!open);
 	};
 
 	const handleSubmit = () => {
-		// Aquí puedes realizar acciones adicionales antes de enviar el formulario, si es necesario.
-		setSubmitted(true);
 		setOpen(false);
-		setCheckboxValues({
-			robe00andres: false,
-			adriMari34: false,
-			admin: false,
-			pruebaUser: false,
-		});
 	};
 
 	const handleClose = () => {
-		if (submitted) {
-			setSubmitted(false);
-		}
 		setOpen(false);
-		setCheckboxValues({
-			robe00andres: false,
-			adriMari34: false,
-			admin: false,
-			pruebaUser: false,
-		});
 		setSearchTerm("");
-	};
-
-	const handleCheckboxChange = event => {
-		const { name, checked } = event.target;
-		setCheckboxValues(prevValues => ({
-			...prevValues,
-			[name]: checked,
-		}));
 	};
 
 	const handleSearchChange = event => {
 		setSearchTerm(event.target.value);
 	};
 
-	const filteredCheckboxes = Object.keys(checkboxValues).filter(key =>
-		key.toLowerCase().includes(searchTerm.toLowerCase())
-	);
+	const filteredCheckboxes = items.filter(x => x.username.includes(searchTerm));
 
 	return (
 		<>
-			<Button startIcon={<Add />} variant="contained" onClick={toggle}>
-				Añadir
-			</Button>
+			<IconButton onClick={toggle}>
+				<Add />
+			</IconButton>
 			<Dialog open={open} onClose={handleClose}>
 				<DialogContent>
 					<Stack direction="row" spacing={2} style={{ marginTop: 10 }}>
@@ -98,19 +67,25 @@ export default function AddSelectUsersTable() {
 							overflowY: "scroll",
 						}}
 					>
-						{filteredCheckboxes.map(key => (
-							<FormControlLabel
-								key={key}
-								label={key}
-								control={
-									<Checkbox
-										name={key}
-										checked={checkboxValues[key]}
-										onChange={handleCheckboxChange}
-									/>
-								}
-							/>
-						))}
+						{loading ? (
+							<CircularProgress />
+						) : (
+							filteredCheckboxes.map(x => (
+								<FormControlLabel
+									key={x.id}
+									className="hover:bg-gray-100 w-full"
+									label={x.username}
+									control={
+										<Checkbox
+											checked={users.some(c => c.id === x.id)}
+											onChange={
+												(console.log(users), console.log(x), () => onToggle(x))
+											}
+										/>
+									}
+								/>
+							))
+						)}
 					</Stack>
 				</DialogContent>
 				<DialogActions>

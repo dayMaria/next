@@ -1,6 +1,5 @@
 import { DesktopDatePicker } from "@mui/lab";
 import { Stack, Tab, Tabs, TextField, TextareaAutosize } from "@mui/material";
-import useSetList from "../common/form/useUniqueList";
 import useUniqueList from "../common/form/useUniqueList";
 import SelectContextTable from "./SelectContextTable";
 import SelectUsersTable from "./SelectUsersTable";
@@ -12,6 +11,7 @@ export default function CaseStudyForm() {
 	const { state: contexts, addOrRemove: addOrRemoveContext } = useUniqueList({
 		comparisonFunction: (a, b) => a.year === b.year && a.id === b.id,
 	});
+	const { state: users, addOrRemove: addOrRemoveUsers } = useUniqueList({});
 	const [tab, setTab] = useState("");
 	const [selectedYear, setSelectedYear] = useState();
 	const [startDate, setStartDate] = useState("");
@@ -97,7 +97,7 @@ export default function CaseStudyForm() {
 					onToggle={x => addOrRemoveContext({ ...x, year: selectedYear })}
 				/>
 			)}
-			<SelectUsersTable data={[]} />
+			<SelectUsersTable users={users} onToggle={addOrRemoveUsers} />
 		</Stack>
 	);
 }

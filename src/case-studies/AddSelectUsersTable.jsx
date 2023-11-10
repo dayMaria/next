@@ -37,7 +37,7 @@ export default function AddSelectUsersTable({ users, onToggle }) {
 		setSearchTerm(event.target.value);
 	};
 
-	const filteredCheckboxes = items.filter(x => x.username.includes(searchTerm));
+	const filteredCheckboxes = items.filter(x => x.username);
 
 	return (
 		<>
@@ -78,9 +78,10 @@ export default function AddSelectUsersTable({ users, onToggle }) {
 									control={
 										<Checkbox
 											checked={users.some(c => c.id === x.id)}
-											onChange={
-												(console.log(users), console.log(x), () => onToggle(x))
-											}
+											//onChange={() => console.log({ users })}
+											onChange={() => {
+												onToggle(x), console.log({ users });
+											}}
 										/>
 									}
 								/>

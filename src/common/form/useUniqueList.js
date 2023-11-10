@@ -2,7 +2,7 @@ import { useState } from "react";
 
 const defaultComparisonFunction = (a, b) => {
   if (a !== null && b !== null && a.id && b.id) {
-    return a._id === b._id;
+    return a.id === b.id;
   }
   return a === b;
 };

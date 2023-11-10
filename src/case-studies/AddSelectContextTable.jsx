@@ -79,6 +79,7 @@ export default function AddSelectContextTable({ contexts, onToggle }) {
 									control={
 										<Checkbox
 											checked={contexts.some(c => c.id === x.id)}
+											//onChange={() => console.log({ contexts })}
 											onChange={() => onToggle(x)}
 										/>
 									}

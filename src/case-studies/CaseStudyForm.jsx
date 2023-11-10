@@ -11,6 +11,11 @@ export default function CaseStudyForm() {
 	const { state: contexts, addOrRemove: addOrRemoveContext } = useUniqueList({
 		comparisonFunction: (a, b) => a.year === b.year && a.id === b.id,
 	});
+	const { state: analysisUnit, addOrRemove: addOrRemoveAnalysisUnit } =
+		useUniqueList({
+			comparisonFunction: (a, b) =>
+				a.year === b.year && a.id === b.id && a.contexts === b.contexts,
+		});
 	const { state: users, addOrRemove: addOrRemoveUsers } = useUniqueList({});
 	const [tab, setTab] = useState("");
 	const [selectedYear, setSelectedYear] = useState();
@@ -37,6 +42,7 @@ export default function CaseStudyForm() {
 						value={startDate}
 						onChange={handleStartDateChange}
 						renderInput={props => <TextField {...props} error={false} />}
+						required
 					/>
 					<DesktopDatePicker
 						label="Fecha fin"

@@ -1,9 +1,16 @@
-import { Add, Delete } from "@mui/icons-material";
+import { Delete } from "@mui/icons-material";
 import { IconButton, Stack } from "@mui/material";
 import Table from "../components/Table";
 import AddSelectContextTable from "./AddSelectContextTable";
+import AddAnalysisUnitForm from "./AddAnalysisUnitForm";
 
-export default function SelectContextTable({ contexts, onToggle }) {
+export default function SelectContextTable({
+	contexts,
+	onToggleAU,
+	analysisUnits,
+	onToggle,
+	selectedYear,
+}) {
 	const columns = [
 		{
 			title: "Nombre",
@@ -14,9 +21,13 @@ export default function SelectContextTable({ contexts, onToggle }) {
 			title: "Acciones",
 			render: obj => (
 				<Stack direction="row" spacing={1}>
-					<IconButton>
-						<Add />
-					</IconButton>
+					<AddAnalysisUnitForm
+						analysisUnits={analysisUnits.filter(x => x.context === obj.id)}
+						onToggleAU={x =>
+							onToggleAU({ ...x, year: selectedYear, context: obj.id })
+						}
+						context={obj}
+					/>
 					<IconButton>
 						<Delete onClick={() => onToggle(obj)} />
 					</IconButton>
@@ -24,6 +35,7 @@ export default function SelectContextTable({ contexts, onToggle }) {
 			),
 		},
 	];
+
 	return (
 		<Table
 			actions={

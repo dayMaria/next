@@ -7,13 +7,14 @@ import {
 	DialogTitle,
 	TextField,
 	IconButton,
+	Snackbar,
 } from "@mui/material";
-import useToggle from "../hooks/useToggle";
 import { useState } from "react";
-export default function AddYears({ onAdd }) {
+export default function AddYears({ onAdd, yearDate }) {
 	const [year, setYear] = useState("");
-	const [submitted, setSubmitted] = useState(false);
 	const [open, setOpen] = useState(false);
+	const [error, setError] = useState(false);
+	const [errorMessage, setErrorMessage] = useState("");
 
 	const toggle = () => {
 		setYear("");
@@ -21,15 +22,27 @@ export default function AddYears({ onAdd }) {
 	};
 
 	const handleSubmit = () => {
-		// Aquí puedes realizar acciones adicionales antes de enviar el formulario, si es necesario.
-		onAdd(year);
-		setYear("");
-		setOpen(false);
+		if (year.length !== 4) {
+			setError(true);
+			setErrorMessage("El año debe contener 4 dígitos");
+		} else if (parseInt(year) < yearDate) {
+			setError(true);
+			setErrorMessage(`El año debe ser mayor o igual a ${yearDate}`);
+		} else {
+			onAdd(year);
+			setYear("");
+			setOpen(false);
+		}
 	};
 
 	const handleClose = () => {
 		setYear("");
 		setOpen(false);
+	};
+
+	const handleSnackbarClose = () => {
+		setError(false);
+		setErrorMessage("");
 	};
 
 	return (
@@ -45,15 +58,26 @@ export default function AddYears({ onAdd }) {
 						required
 						onChange={ev => setYear(ev.target.value)}
 						value={year}
+						type="number"
 					/>
 				</DialogContent>
 				<DialogActions>
 					<Button onClick={toggle}>Cancelar</Button>
-					<Button disabled={!year} onClick={handleSubmit} variant="contained">
+					<Button
+						disabled={!year || error}
+						onClick={handleSubmit}
+						variant="contained"
+					>
 						Añadir
 					</Button>
 				</DialogActions>
 			</Dialog>
+			<Snackbar
+				open={error}
+				autoHideDuration={3000}
+				onClose={handleSnackbarClose}
+				message={errorMessage}
+			/>
 		</>
 	);
 }

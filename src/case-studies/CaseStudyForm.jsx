@@ -11,10 +11,10 @@ export default function CaseStudyForm() {
 	const { state: contexts, addOrRemove: addOrRemoveContext } = useUniqueList({
 		comparisonFunction: (a, b) => a.year === b.year && a.id === b.id,
 	});
-	const { state: analysisUnit, addOrRemove: addOrRemoveAnalysisUnit } =
+	const { state: analysisUnits, addOrRemove: addOrRemoveAnalysisUnit } =
 		useUniqueList({
 			comparisonFunction: (a, b) =>
-				a.year === b.year && a.id === b.id && a.contexts === b.contexts,
+				a.year === b.year && a.id === b.id && a.context === b.context,
 		});
 	const { state: users, addOrRemove: addOrRemoveUsers } = useUniqueList({});
 	const [tab, setTab] = useState("");
@@ -32,13 +32,15 @@ export default function CaseStudyForm() {
 
 	const isEndDateInvalid = endDate && startDate > endDate;
 
+	const yearDate = startDate ? startDate.getFullYear() : null;
+
 	return (
 		<Stack spacing={2}>
 			<Stack spacing={1}>
 				<Stack direction="row" spacing={1}>
 					<TextField label="Nombre" required />
 					<DesktopDatePicker
-						label="Fecha inicio"
+						label="Fecha inicio*"
 						value={startDate}
 						onChange={handleStartDateChange}
 						renderInput={props => <TextField {...props} error={false} />}
@@ -94,13 +96,16 @@ export default function CaseStudyForm() {
 					}}
 					onClick={() => setTab(tab)}
 				>
-					<AddYears onAdd={addOrRemoveYear} />
+					{yearDate && <AddYears onAdd={addOrRemoveYear} yearDate={yearDate} />}
 				</div>
 			</Tabs>
 			{selectedYear && (
 				<SelectContextTable
 					contexts={contexts.filter(x => x.year === selectedYear)}
 					onToggle={x => addOrRemoveContext({ ...x, year: selectedYear })}
+					onToggleAU={addOrRemoveAnalysisUnit}
+					analysisUnits={analysisUnits.filter(x => x.year === selectedYear)}
+					selectedYear={selectedYear}
 				/>
 			)}
 			<SelectUsersTable users={users} onToggle={addOrRemoveUsers} />

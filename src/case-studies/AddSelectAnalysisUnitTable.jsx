@@ -12,12 +12,15 @@ import {
 } from "@mui/material";
 import { Add } from "@mui/icons-material";
 import { useState } from "react";
-import AddContext from "../context/AddContext";
-import useContexts from "../context/useContexts";
+import AddAnalysisUnit from "../analysis-unit/AddAnalysisUnit";
+import useAnalysisUnit from "../analysis-unit/useAnalysisUnits";
 
-export default function AddSelectContextTable({ contexts, onToggle }) {
+export default function AddSelectAnalysisUnitTable({
+	analysisUnits,
+	onToggleAU,
+}) {
 	const [open, setOpen] = useState(false);
-	const [items, loading] = useContexts();
+	const [items, loading] = useAnalysisUnit();
 	const [searchTerm, setSearchTerm] = useState("");
 
 	const toggle = () => {
@@ -52,7 +55,7 @@ export default function AddSelectContextTable({ contexts, onToggle }) {
 							value={searchTerm}
 							onChange={handleSearchChange}
 						/>
-						<AddContext />
+						<AddAnalysisUnit />
 					</Stack>
 					<Stack
 						direction="column"
@@ -78,8 +81,8 @@ export default function AddSelectContextTable({ contexts, onToggle }) {
 									label={x.name}
 									control={
 										<Checkbox
-											checked={contexts.some(c => c.id === x.id)}
-											onChange={() => onToggle(x)}
+											checked={analysisUnits.some(c => c.id === x.id)}
+											onChange={() => onToggleAU(x)}
 										/>
 									}
 								/>

@@ -1,5 +1,6 @@
 import { Add } from "@mui/icons-material";
 import {
+	Alert,
 	Button,
 	Dialog,
 	DialogActions,
@@ -50,7 +51,7 @@ export default function AddYears({ onAdd, yearDate }) {
 			<IconButton onClick={toggle}>
 				<Add />
 			</IconButton>
-			<Dialog open={open} onClose={handleClose}>
+			<Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
 				<DialogTitle>Añadir año</DialogTitle>
 				<DialogContent>
 					<TextField
@@ -76,8 +77,9 @@ export default function AddYears({ onAdd, yearDate }) {
 				open={error}
 				autoHideDuration={3000}
 				onClose={handleSnackbarClose}
-				message={errorMessage}
-			/>
+			>
+				<Alert severity="error">{errorMessage}</Alert>
+			</Snackbar>
 		</>
 	);
 }

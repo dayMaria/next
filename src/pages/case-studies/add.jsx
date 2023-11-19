@@ -1,9 +1,12 @@
 import Head from "next/head";
 import PageContainer from "../../components/layout/PageContainer";
 import CaseStudyForm from "../../case-studies/CaseStudyForm";
-import { Button,Stack } from "@mui/material";
+import { Button, Stack } from "@mui/material";
+import useAddCaseStudy from "../../case-studies/useAddCaseStudy";
 
 export default function AddCaseStudy() {
+	const [mutateAsync, loading] = useAddCaseStudy();
+
 	return (
 		<>
 			<Head>
@@ -11,10 +14,7 @@ export default function AddCaseStudy() {
 			</Head>
 			<PageContainer page="Crear estudio de caso">
 				<Stack spacing={2}>
-					<CaseStudyForm />
-					<div className="flex justify-end">
-						<Button variant="contained">Añadir</Button>
-					</div>
+					<CaseStudyForm onSubmit={mutateAsync} loading={loading} />
 				</Stack>
 			</PageContainer>
 		</>

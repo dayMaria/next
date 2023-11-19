@@ -2,10 +2,10 @@ import Head from "next/head";
 import PageContainer from "../../components/layout/PageContainer";
 import CaseStudyTable from "../../case-studies/CaseStudyTable";
 import { CircularProgress } from "@mui/material";
-import useCaseStudy from "../../case-studies/useCaseStudy";
+import useCaseStudies from "../../case-studies/useCaseStudies";
 
 export default function CaseStudysIndex() {
-	const [items, loading] = useCaseStudy();
+	const [items, loading] = useCaseStudies();
 	return (
 		<>
 			<Head>

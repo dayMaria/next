@@ -11,6 +11,7 @@ import theme from "../config/theme";
 
 import "../styles/globals.css";
 import SnackbarProvider from "../common/feedback/SnackbarProvider";
+import Auth from "../auth/auth";
 
 function MyApp({ Component, pageProps }) {
 	return (
@@ -22,9 +23,11 @@ function MyApp({ Component, pageProps }) {
 					<LocalizationProvider dateAdapter={AdapterDateFns} locale={locale}>
 						<ReactQueryProvider>
 							<SnackbarProvider>
-								<BaseLayout>
-									<Component {...pageProps} />
-								</BaseLayout>
+								<Auth>
+									<BaseLayout>
+										<Component {...pageProps} />
+									</BaseLayout>
+								</Auth>
 							</SnackbarProvider>
 						</ReactQueryProvider>
 					</LocalizationProvider>

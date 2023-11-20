@@ -4,7 +4,7 @@ import { Visibility } from "@mui/icons-material";
 import { IconButton, Stack, TextField, Button } from "@mui/material";
 import { Edit } from "@mui/icons-material";
 import { Add } from "@mui/icons-material";
-import Link from 'next/link'
+import Link from "next/link";
 
 const columns = [
 	{
@@ -29,9 +29,11 @@ const columns = [
 						<Edit />
 					</IconButton>
 				</Link>
-				<IconButton>
-					<Visibility />
-				</IconButton>
+				<Link href={`/case-studies/${obj.id}/visualizar`}>
+					<IconButton>
+						<Visibility />
+					</IconButton>
+				</Link>
 			</Stack>
 		),
 	},

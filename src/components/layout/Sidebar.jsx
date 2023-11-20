@@ -24,6 +24,7 @@ export default function Sidebar() {
 				Icon={Preview}
 				label="Tipos de evidencia"
 			/>
+			<NavLink href="/misEvidencia" Icon={Preview} label="Evidencias" />
 			<NavLink href="/users" Icon={Preview} label="Usuarios" />
 			<NavLinkCollapse Icon={Preview} label="Reportes">
 				<NavLink

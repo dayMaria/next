@@ -9,7 +9,7 @@ export default function Repo3() {
 				<title>{process.env.NEXT_PUBLIC_APP_NAME} - Reporte</title>
 			</Head>
 			<PageContainer>
-				<Repo3Table data={[]} />
+				<Repo3Table />
 			</PageContainer>
 		</>
 	);

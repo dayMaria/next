@@ -1,38 +1,36 @@
-import {Typography} from "@mui/material"
-import {Suspense} from "react"
+import { Typography } from "@mui/material";
+import { Suspense } from "react";
 
 import _roles from "../../constants/roles";
-import {useUser} from "../../config/Oidc"
 import ErrorBoundary from "../ErrorBoundary";
-import Spinner from "../Spinner"
+import Spinner from "../Spinner";
+import { useUser } from "../../auth/auth";
 
-const PageContainer = ({ children, page, roles }) => {
-  const user = useUser()
+const PageContainer = ({ children, page, role }) => {
+	const user = useUser();
 
-  const haveAccess = !roles
-    || user.roles.some(r => roles.some(role => role === r))
-    || user.roles.some(r => r === _roles.ADMIN);
+	const haveAccess = !role || user.rol === role;
 
-  return (
-    <>
-      {page && (
-        <div className="mb-3">
-          <Typography className="border-b-2 border-gray-100" variant="h5">{page}</Typography>
-        </div>
-      )}
-      {haveAccess ? (
-        <ErrorBoundary>
-          <Suspense fallback={<Spinner />}>
-            {children}
-          </Suspense>
-        </ErrorBoundary>
-      ) : (
-        <Typography color="error" variant="body1">
-          Usted no tiene acceso a esta funcionalidad
-        </Typography>
-      )}
-    </>
-  )
-}
+	return (
+		<>
+			{page && (
+				<div className="mb-3">
+					<Typography className="border-b-2 border-gray-100" variant="h5">
+						{page}
+					</Typography>
+				</div>
+			)}
+			{haveAccess ? (
+				<ErrorBoundary>
+					<Suspense fallback={<Spinner />}>{children}</Suspense>
+				</ErrorBoundary>
+			) : (
+				<Typography color="error" variant="body1">
+					Usted no tiene acceso a esta funcionalidad
+				</Typography>
+			)}
+		</>
+	);
+};
 
-export default PageContainer
+export default PageContainer;

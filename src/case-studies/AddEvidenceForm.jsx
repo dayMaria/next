@@ -1,64 +1,36 @@
-import { Add, Delete, Edit } from "@mui/icons-material";
-import { IconButton, Stack, TextField, MenuItem } from "@mui/material";
-import Table from "../components/Table";
+import { Add } from "@mui/icons-material";
+import {
+	IconButton,
+	Dialog,
+	DialogTitle,
+	Stack,
+	TextField,
+	MenuItem,
+	DialogContent,
+	DialogActions,
+	Button,
+} from "@mui/material";
+import { useState } from "react";
+import Upload from "../components/Upload";
 import { CircularProgress } from "@mui/material";
-import useMisEvidenciasFilter from "../case-studies/useMisEvidenciasFilter";
 import useCaseStudies from "../case-studies/useCaseStudies";
 import useContexts from "../context/useContexts";
 import useAnalysisUnits from "../analysis-unit/useAnalysisUnits";
-import { useState } from "react";
-import PageContainer from "../components/layout/PageContainer";
-import roles from "../constants/roles";
-import Head from "next/head";
-import AddEvidenceForm from "../case-studies/AddEvidenceForm";
+import useTypeEvidence from "./useTypeEvidence";
 
-const columns = [
-	{
-		title: "Estudio de caso",
-		key: "caseStudyName",
-	},
-	{
-		title: "Contexto",
-		key: "context",
-	},
-	{
-		title: "Unidad de análisis",
-		key: "ua",
-	},
-	{
-		title: "Evidencia",
-		key: "evidence",
-	},
-	{
-		title: "Fecha",
-		key: "date",
-	},
-	{
-		title: "Acciones",
-		width: 1,
-		render: obj => (
-			<Stack direction="row" spacing={1}>
-				<IconButton>
-					<Edit />
-				</IconButton>
-				<IconButton>
-					<Delete />
-				</IconButton>
-			</Stack>
-		),
-	},
-];
-export default function MisEvidencias() {
-	const [items, loading] = useMisEvidenciasFilter();
+export default function AddEvidenceForm({ items, loading }) {
+	const [open, setOpen] = useState(false);
 	const [dataCS, loadingCS] = useCaseStudies();
 	const [dataC, loadingC] = useContexts();
 	const [dataAU, loadingAU] = useAnalysisUnits();
-
+	const [dataTE, loadingTE] = useTypeEvidence();
 	const [selectedCaseStudy, setSelectedCaseStudy] = useState("");
 	const [selectedContext, setSelectedContext] = useState("");
 	const [selectedAU, setSelectedAU] = useState("");
+	const [selectedEvidence, setSelectedEvidence] = useState("");
+	const [selectedTE, setSelectedTE] = useState("");
 
-	if (loading || loadingCS || loadingC || loadingAU) {
+	if (loading || loadingCS || loadingC || loadingAU || loadingTE) {
 		return <CircularProgress />;
 	}
 	const caseStudy = dataCS.filter(cs =>
@@ -85,13 +57,25 @@ export default function MisEvidencias() {
 		);
 	}
 
+	const toggle = () => {
+		setOpen(!open);
+	};
+
+	const handleClose = () => {
+		setOpen(false);
+	};
+
+	const handleSubmit = () => {
+		setOpen(false);
+	};
 	return (
 		<>
-			<Head>
-				<title>{process.env.NEXT_PUBLIC_APP_NAME} - Evidencias</title>
-			</Head>
-			<PageContainer role={roles.Investigador}>
-				<div className="space-y-4">
+			<IconButton onClick={toggle}>
+				<Add />
+			</IconButton>
+			<Dialog open={open} onClose={handleClose}>
+				<DialogTitle>Subir evidencias</DialogTitle>
+				<DialogContent>
 					<Stack direction="row" spacing={1}>
 						<TextField
 							select
@@ -135,11 +119,58 @@ export default function MisEvidencias() {
 								</MenuItem>
 							))}
 						</TextField>
-						<AddEvidenceForm items={items} loading={loading} />
 					</Stack>
-					<Table columns={columns} data={[]} title="Añadir evidencias" />
-				</div>
-			</PageContainer>
+					<Stack
+						spacing={2}
+						style={{
+							marginTop: "15px",
+						}}
+					>
+						<TextField
+							select
+							placeholder="Select"
+							label="Tipo de evidencia"
+							onChange={ev => setSelectedTE(ev.target.value)}
+							value={selectedTE}
+						>
+							<MenuItem></MenuItem>
+							{dataTE.map(x => (
+								<MenuItem key={x.id} value={x.id}>
+									{x.name}
+								</MenuItem>
+							))}
+						</TextField>
+						<div
+							style={{
+								display: "flex",
+								justifyContent: "center",
+							}}
+						>
+							<Upload
+								label={`Evidencia`}
+								onChange={setSelectedEvidence}
+								value={selectedEvidence}
+							/>
+						</div>
+					</Stack>
+				</DialogContent>
+				<DialogActions>
+					<Button onClick={toggle}>Cancelar</Button>
+					<Button
+						disabled={
+							!selectedEvidence ||
+							!selectedAU ||
+							!selectedCaseStudy ||
+							!selectedContext ||
+							!selectedTE
+						}
+						onClick={handleSubmit}
+						variant="contained"
+					>
+						Añadir
+					</Button>
+				</DialogActions>
+			</Dialog>
 		</>
 	);
 }

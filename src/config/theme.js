@@ -153,10 +153,10 @@ const theme = createTheme({
   },
   palette: {
     common: {
-      black: '#13505B'
+      black: '#0A4551'
     },
     primary: {
-      main: "#5C9AA2"
+      main: "#98C0C8"
     },
     text: {
       primary: "rgba(17, 24, 39, 1)+"

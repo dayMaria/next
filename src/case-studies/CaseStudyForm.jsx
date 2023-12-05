@@ -12,8 +12,10 @@ import SelectContextTable from "./SelectContextTable";
 import SelectUsersTable from "./SelectUsersTable";
 import AddYears from "./AddYears";
 import { useEffect, useState } from "react";
+import { useUser } from "../auth/auth";
 
 export default function CaseStudyForm({ obj, onSubmit, loading }) {
+	const userLog = useUser();
 	const {
 		state: years,
 		addOrRemove: addOrRemoveYear,
@@ -105,7 +107,6 @@ export default function CaseStudyForm({ obj, onSubmit, loading }) {
 					aus: analysisUnits
 						.filter(ua => ua.year === year && ua.context === c.id)
 						.map(ua => ua.id),
-					systems: [1],
 				});
 			}
 			YearsDto.push(yearDto);
@@ -117,6 +118,7 @@ export default function CaseStudyForm({ obj, onSubmit, loading }) {
 			end_date: endDate,
 			years: YearsDto,
 			users: users.map(u => u.id),
+			user: userLog.id,
 		};
 		onSubmit(caseToAdd);
 	};
@@ -124,8 +126,7 @@ export default function CaseStudyForm({ obj, onSubmit, loading }) {
 	const isEndDateInvalid = endDate && startDate > endDate;
 
 	const yearDate = startDate ? startDate.getFullYear() : null;
-
-	console.log({ startDate, yearDate, obj });
+	const yearDateEnd = endDate ? endDate.getFullYear() : null;
 
 	return (
 		<Stack spacing={2}>
@@ -195,7 +196,13 @@ export default function CaseStudyForm({ obj, onSubmit, loading }) {
 					}}
 					onClick={() => setTab(tab)}
 				>
-					{yearDate && <AddYears onAdd={addOrRemoveYear} yearDate={yearDate} />}
+					{yearDate && (
+						<AddYears
+							onAdd={addOrRemoveYear}
+							yearDate={yearDate}
+							yearDateEnd={yearDateEnd}
+						/>
+					)}
 				</div>
 			</Tabs>
 			{selectedYear && (

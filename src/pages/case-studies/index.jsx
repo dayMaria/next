@@ -3,6 +3,7 @@ import PageContainer from "../../components/layout/PageContainer";
 import CaseStudyTable from "../../case-studies/CaseStudyTable";
 import { CircularProgress } from "@mui/material";
 import useCaseStudies from "../../case-studies/useCaseStudies";
+import roles from "../../constants/roles";
 
 export default function CaseStudysIndex() {
 	const [items, loading] = useCaseStudies();
@@ -11,7 +12,7 @@ export default function CaseStudysIndex() {
 			<Head>
 				<title>{process.env.NEXT_PUBLIC_APP_NAME} - Estudios de casos</title>
 			</Head>
-			<PageContainer>
+			<PageContainer role={roles.InvestigadorJefe}>
 				{loading ? <CircularProgress /> : <CaseStudyTable data={items} />}
 			</PageContainer>
 		</>

@@ -26,7 +26,7 @@ export default function EditTypeEvidence({ typeEvidence }) {
 			<IconButton onClick={toggle}>
 				<Edit />
 			</IconButton>
-			<Dialog open={open}>
+			<Dialog open={open} fullWidth maxWidth="sm">
 				<DialogTitle>Editar tipo de evidencia</DialogTitle>
 				<DialogContent>
 					<TextField

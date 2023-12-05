@@ -5,7 +5,7 @@ import PageContainer from "../../../components/layout/PageContainer";
 import { CircularProgress, Stack, Typography, IconButton } from "@mui/material";
 import { ArrowBack, ArrowForward } from "@mui/icons-material";
 import { useState, useEffect } from "react";
-
+import roles from "../../../constants/roles";
 export default function Visualizar() {
 	const router = useRouter();
 	const [data, loading] = useCaseStudy(router.query.id);
@@ -28,7 +28,10 @@ export default function Visualizar() {
 					{process.env.NEXT_PUBLIC_APP_NAME} - Visualizar estudio de caso
 				</title>
 			</Head>
-			<PageContainer page="Visualizar caso de estudio">
+			<PageContainer
+				page="Visualizar caso de estudio"
+				role={roles.Investigador && roles.InvestigadorJefe}
+			>
 				{loading || !data ? (
 					<CircularProgress />
 				) : (
@@ -48,27 +51,6 @@ export default function Visualizar() {
 							<Typography>Descripción: {data.description}</Typography>
 							{yearIndex > -1 && (
 								<div className="space-y-2">
-									<div className="grid grid-cols-3 gap-6">
-										{data.years[yearIndex].contexts.map(x => (
-											<div
-												key={x.id}
-												className="shadow-md  rounded-md p-4 space-y-2"
-											>
-												<Typography variant="h6">{x.name}</Typography>
-												<div className="grid grid-cols-2 gap-4">
-													{x.aus.map(au => (
-														<div
-															key={au.id}
-															className="rounded-md px-2 py-1 border-gray-200"
-															style={{ borderWidth: "1px" }}
-														>
-															<Typography>{au.name}</Typography>
-														</div>
-													))}
-												</div>
-											</div>
-										))}
-									</div>
 									<div className="flex space-x-2 items-center justify-center">
 										<IconButton
 											disabled={yearIndex === 0}
@@ -85,6 +67,31 @@ export default function Visualizar() {
 										>
 											<ArrowForward />
 										</IconButton>
+									</div>
+									<div className="grid grid-cols-3 gap-6">
+										{data.years[yearIndex].contexts.map(x => (
+											<div
+												key={x.id}
+												className="shadow-md  rounded-md p-4 space-y-2"
+												style={{ background: "#E9FBFA " }}
+											>
+												<Typography variant="h6">{x.name}</Typography>
+												<div className="grid grid-cols-2 gap-4">
+													{x.aus.map(au => (
+														<div
+															key={au.id}
+															className="rounded-md px-2 py-1 border-gray-200"
+															style={{
+																borderWidth: "1px",
+																background: "#D5ECEB ",
+															}}
+														>
+															<Typography>{au.name}</Typography>
+														</div>
+													))}
+												</div>
+											</div>
+										))}
 									</div>
 								</div>
 							)}

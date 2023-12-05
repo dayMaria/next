@@ -4,20 +4,20 @@ import { IconButton, Stack, TextField } from "@mui/material";
 
 const columns = [
 	{
-		title: "Contextos",
-		key: "context",
+		title: "Contexto",
+		key: "context_name",
 	},
 	{
-		title: "Unidades de análisis",
-		key: "analysisUnit",
+		title: "Unidad de análisis",
+		key: "analysis_unit_name",
 	},
 	{
-		title: "Tipos de evidencias",
-		key: "typeEvidence",
+		title: "Tipo de evidencia",
+		key: "type_evidence_name",
 	},
 ];
 
-export default function Repo1Table({ data }) {
+export default function Repo2Table({ data }) {
 	return (
 		<Table
 			columns={columns}

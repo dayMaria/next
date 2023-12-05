@@ -8,9 +8,11 @@ import {
 	DialogTitle,
 	IconButton,
 	TextField,
+	MenuItem,
 } from "@mui/material";
 import { Edit } from "@mui/icons-material";
 import useEditUsers from "./useEditUsers";
+import roles from "../constants/roles";
 export default function EditUsers({ users }) {
 	const [rol, setRol] = useState(users.rol);
 	const [open, toggle] = useToggle();
@@ -25,16 +27,32 @@ export default function EditUsers({ users }) {
 			<IconButton onClick={toggle}>
 				<Edit />
 			</IconButton>
-			<Dialog open={open}>
+			<Dialog open={open} fullWidth maxWidth="sm">
 				<DialogTitle> Editar usuario</DialogTitle>
 				<DialogContent>
 					<TextField
+						select
+						placeholder="Select"
 						label="Rol"
 						onChange={ev => setRol(ev.target.value)}
 						required
 						value={rol}
 						style={{ marginBottom: "20px" }}
-					/>
+					>
+						<MenuItem></MenuItem>
+						<MenuItem
+							key={roles.InvestigadorJefe}
+							value={roles.InvestigadorJefe}
+						>
+							InvestigadorJefe
+						</MenuItem>
+						<MenuItem key={roles.Investigador} value={roles.Investigador}>
+							Investigador
+						</MenuItem>
+						<MenuItem key={roles.Administrador} value={roles.Administrador}>
+							Administrador
+						</MenuItem>
+					</TextField>
 				</DialogContent>
 				<DialogActions>
 					<Button onClick={toggle}>Cancelar</Button>

@@ -2,6 +2,7 @@ import { TextField, Typography, Button } from "@mui/material";
 import { createContext, useContext, useState } from "react";
 import useAuth from "./useAuth";
 
+const SignOutContext = createContext();
 const UserContext = createContext();
 
 export default function Auth({ children }) {
@@ -15,7 +16,12 @@ export default function Auth({ children }) {
 		login({ username, password }).then(setUser);
 	};
 
-	if (user) return children;
+	if (user)
+		return (
+			<SignOutContext.Provider value={() => setUser()}>
+				<UserContext.Provider value={user}>{children}</UserContext.Provider>
+			</SignOutContext.Provider>
+		);
 
 	return (
 		<div className="pt-12 bg-gray-100 flex justify-center h-screen">
@@ -50,4 +56,8 @@ export default function Auth({ children }) {
 
 export function useUser() {
 	return useContext(UserContext);
+}
+
+export function useSignOut() {
+	return useContext(SignOutContext);
 }

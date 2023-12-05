@@ -33,7 +33,7 @@ export default function AddTypeEvidence() {
 			<IconButton onClick={() => setOpen(true)}>
 				<Add />
 			</IconButton>
-			<Dialog open={open} onClose={handleClose}>
+			<Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
 				<DialogTitle> Añadir tipo de evidencia</DialogTitle>
 				<DialogContent>
 					<TextField

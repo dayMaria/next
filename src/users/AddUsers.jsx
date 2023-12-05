@@ -6,10 +6,12 @@ import {
 	DialogContent,
 	DialogTitle,
 	TextField,
+	MenuItem,
 } from "@mui/material";
 import { Add } from "@mui/icons-material";
 import { useState } from "react";
 import useAddUsers from "./useAddUsers";
+import roles from "../constants/roles";
 export default function AddUsers() {
 	const [username, setName] = useState("");
 	const [password, setPassword] = useState("");
@@ -39,7 +41,7 @@ export default function AddUsers() {
 			<IconButton onClick={() => setOpen(true)}>
 				<Add />
 			</IconButton>
-			<Dialog open={open}>
+			<Dialog open={open} fullWidth maxWidth="sm">
 				<DialogTitle> Añadir usuario</DialogTitle>
 				<DialogContent>
 					<TextField
@@ -58,12 +60,28 @@ export default function AddUsers() {
 						style={{ marginBottom: "20px" }}
 					/>
 					<TextField
+						select
+						placeholder="Select"
 						label="Rol"
 						onChange={ev => setRol(ev.target.value)}
 						required
 						value={rol}
 						style={{ marginBottom: "20px" }}
-					/>
+					>
+						<MenuItem></MenuItem>
+						<MenuItem
+							key={roles.InvestigadorJefe}
+							value={roles.InvestigadorJefe}
+						>
+							InvestigadorJefe
+						</MenuItem>
+						<MenuItem key={roles.Investigador} value={roles.Investigador}>
+							Investigador
+						</MenuItem>
+						<MenuItem key={roles.Administrador} value={roles.Administrador}>
+							Administrador
+						</MenuItem>
+					</TextField>
 				</DialogContent>
 				<DialogActions>
 					<Button onClick={handleClose}>Cancelar</Button>

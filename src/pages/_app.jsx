@@ -17,22 +17,19 @@ function MyApp({ Component, pageProps }) {
 	return (
 		<ErrorBoundary>
 			<CssBaseline />
-
-			<OidcAuth>
-				<ThemeProvider theme={theme}>
-					<LocalizationProvider dateAdapter={AdapterDateFns} locale={locale}>
-						<ReactQueryProvider>
-							<SnackbarProvider>
-								<Auth>
-									<BaseLayout>
-										<Component {...pageProps} />
-									</BaseLayout>
-								</Auth>
-							</SnackbarProvider>
-						</ReactQueryProvider>
-					</LocalizationProvider>
-				</ThemeProvider>
-			</OidcAuth>
+			<ThemeProvider theme={theme}>
+				<LocalizationProvider dateAdapter={AdapterDateFns} locale={locale}>
+					<ReactQueryProvider>
+						<SnackbarProvider>
+							<Auth>
+								<BaseLayout>
+									<Component {...pageProps} />
+								</BaseLayout>
+							</Auth>
+						</SnackbarProvider>
+					</ReactQueryProvider>
+				</LocalizationProvider>
+			</ThemeProvider>
 		</ErrorBoundary>
 	);
 }

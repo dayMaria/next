@@ -1,6 +1,6 @@
-import { useQuery } from "use-http";
-import { useUser } from "../auth/auth";
+import { useQuery } from "react-query";
 import { caseStudyApi } from "../common/http/apis"
+import { useUser } from "../auth/auth";
 
 export default function useMisEvidencias() {
     const user = useUser();

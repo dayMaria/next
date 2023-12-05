@@ -11,7 +11,7 @@ import {
 	Snackbar,
 } from "@mui/material";
 import { useState } from "react";
-export default function AddYears({ onAdd, yearDate }) {
+export default function AddYears({ onAdd, yearDate, yearDateEnd }) {
 	const [year, setYear] = useState("");
 	const [open, setOpen] = useState(false);
 	const [error, setError] = useState(false);
@@ -29,6 +29,9 @@ export default function AddYears({ onAdd, yearDate }) {
 		} else if (parseInt(year) < yearDate) {
 			setError(true);
 			setErrorMessage(`El año debe ser mayor o igual a ${yearDate}`);
+		} else if (yearDateEnd && parseInt(year) > yearDateEnd) {
+			setError(true);
+			setErrorMessage(`El año debe estar entre ${yearDate} y ${yearDateEnd}`);
 		} else {
 			onAdd(year);
 			setYear("");

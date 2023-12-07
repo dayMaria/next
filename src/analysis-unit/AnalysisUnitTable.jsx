@@ -45,7 +45,6 @@ export default function AnalysisUnitTable({ data }) {
 						value={searchTerm}
 						onChange={e => setSearchTerm(e.target.value)}
 					/>
-					<AddAnalysisUnit />
 				</Stack>
 			}
 		/>

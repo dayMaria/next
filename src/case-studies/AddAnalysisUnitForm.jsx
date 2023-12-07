@@ -39,8 +39,21 @@ export default function AddAnalysisUnitForm({
 				onClose={handleClose}
 				style={{ maxHeight: "520px", overflowY: "scroll" }}
 			>
-				<DialogTitle>Añadir unidades de análisis</DialogTitle>
-				<Typography variant="h7" style={{ marginLeft: "26px" }}>
+				<DialogTitle
+					style={{
+						background: "#0A4551",
+						padding: 4.5,
+						display: "flex",
+						justifyContent: "center",
+						color: "#FAFBFC",
+					}}
+				>
+					Añadir unidades de análisis
+				</DialogTitle>
+				<Typography
+					variant="h6"
+					style={{ marginLeft: "26px", fontFamily: "sans-serif" }}
+				>
 					Contexto: {context.name}
 				</Typography>
 				<DialogContent>

@@ -28,14 +28,24 @@ export default function EditAnalysisUnit({ analysisUnit }) {
 				<Edit />
 			</IconButton>
 			<Dialog open={open}>
-				<DialogTitle> Editar unidad de análisis</DialogTitle>
+				<DialogTitle
+					style={{
+						background: "#0A4551",
+						padding: 4.5,
+						display: "flex",
+						justifyContent: "center",
+						color: "#FAFBFC",
+					}}
+				>
+					Editar unidad de análisis
+				</DialogTitle>
 				<DialogContent>
 					<TextField
 						label="Nombre"
 						onChange={ev => setName(ev.target.value)}
 						required
 						value={name}
-						style={{ marginBottom: "20px" }}
+						style={{ marginBottom: "20px", marginTop: "20px" }}
 					/>
 					<TextareaAutosize
 						style={{

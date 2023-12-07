@@ -5,6 +5,7 @@ import PageContainer from "../../../components/layout/PageContainer";
 import useCaseStudy from "../../../case-studies/useCaseStudy";
 import CaseStudyForm from "../../../case-studies/CaseStudyForm";
 import useEditCaseStudy from "../../../case-studies/useEditCaseStudy";
+import roles from "../../../constants/roles";
 
 export default function Edit() {
 	const router = useRouter();
@@ -18,7 +19,10 @@ export default function Edit() {
 					{process.env.NEXT_PUBLIC_APP_NAME} - Editar caso de estudio
 				</title>
 			</Head>
-			<PageContainer page="Editar caso de estudio">
+			<PageContainer
+				page="Editar caso de estudio"
+				role={roles.InvestigadorJefe}
+			>
 				{loading || !data ? (
 					<CircularProgress />
 				) : (

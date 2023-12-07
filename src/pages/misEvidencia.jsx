@@ -11,6 +11,7 @@ import PageContainer from "../components/layout/PageContainer";
 import roles from "../constants/roles";
 import Head from "next/head";
 import AddEvidenceForm from "../case-studies/AddEvidenceForm";
+import FileDownloadSharpIcon from "@mui/icons-material/FileDownloadSharp";
 
 const columns = [
 	{
@@ -39,10 +40,7 @@ const columns = [
 		render: obj => (
 			<Stack direction="row" spacing={1}>
 				<IconButton>
-					<Edit />
-				</IconButton>
-				<IconButton>
-					<Delete />
+					<FileDownloadSharpIcon />
 				</IconButton>
 			</Stack>
 		),
@@ -90,7 +88,7 @@ export default function MisEvidencias() {
 			<Head>
 				<title>{process.env.NEXT_PUBLIC_APP_NAME} - Evidencias</title>
 			</Head>
-			<PageContainer role={roles.Investigador}>
+			<PageContainer role={roles.Investigador} page="Añadir evidencia">
 				<div className="space-y-4">
 					<Stack direction="row" spacing={1}>
 						<TextField
@@ -137,7 +135,7 @@ export default function MisEvidencias() {
 						</TextField>
 						<AddEvidenceForm items={items} loading={loading} />
 					</Stack>
-					<Table columns={columns} data={[]} title="Añadir evidencias" />
+					<Table columns={columns} data={[]} />
 				</div>
 			</PageContainer>
 		</>

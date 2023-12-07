@@ -1,9 +1,8 @@
 import { Logout } from "@mui/icons-material";
 import { IconButton, Typography, Stack } from "@mui/material";
 import { useSignOut, useUser } from "../../auth/auth";
+import Link from "next/link";
 import PersonIcon from "@mui/icons-material/Person";
-import ReorderSharpIcon from "@mui/icons-material/ReorderSharp";
-import { useState } from "react";
 
 export default function PageHeader() {
 	const user = useUser();
@@ -21,9 +20,11 @@ export default function PageHeader() {
 				<Typography style={{ color: "#FAFBFC", marginTop: 4 }}>
 					Bienvenido {user.username}
 				</Typography>
-				<IconButton>
-					<PersonIcon style={{ color: "#FAFBFC" }} />
-				</IconButton>
+				<Link href={`/user/${user.id}/editarUsuario`}>
+					<IconButton>
+						<PersonIcon style={{ color: "#FAFBFC" }} />
+					</IconButton>
+				</Link>
 				<IconButton onClick={signOut}>
 					<Logout style={{ color: "#FAFBFC" }} />
 				</IconButton>

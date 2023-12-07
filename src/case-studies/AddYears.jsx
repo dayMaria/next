@@ -55,8 +55,18 @@ export default function AddYears({ onAdd, yearDate, yearDateEnd }) {
 				<Add />
 			</IconButton>
 			<Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
-				<DialogTitle>Añadir año</DialogTitle>
-				<DialogContent>
+				<DialogTitle
+					style={{
+						background: "#0A4551",
+						padding: 4.5,
+						display: "flex",
+						justifyContent: "center",
+						color: "#FAFBFC",
+					}}
+				>
+					Añadir año
+				</DialogTitle>
+				<DialogContent style={{ marginTop: 20 }}>
 					<TextField
 						label="Año"
 						required

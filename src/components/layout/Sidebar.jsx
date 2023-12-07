@@ -58,6 +58,14 @@ export default function Sidebar() {
 			{user.rol === roles.Administrador && (
 				<NavLink href="/users" Icon={RecentActorsIcon} label="Usuarios" />
 			)}
+			{(user.rol === roles.Investigador ||
+				user.rol === roles.InvestigadorJefe) && (
+				<NavLink
+					href="/"
+					Icon={Preview}
+					label="Visualizar estudios de casos asociados"
+				/>
+			)}
 
 			{user.rol === roles.InvestigadorJefe && (
 				<NavLinkCollapse Icon={SummarizeIcon} label="Reportes">
@@ -69,22 +77,17 @@ export default function Sidebar() {
 					<NavLink
 						href="/reports/repo2"
 						Icon={GradingIcon}
-						label="Contextos, unidades de análisis y tipos de evidencias asociados"
+						label="Estudios de casos por tipo de evidencia"
 					/>
 					<NavLink
 						href="/reports/repo3"
 						Icon={GradingIcon}
-						label="Contextos y estudios de casos asociados por período de tiempo"
+						label="Estudios de casos asociados por período de tiempo"
 					/>
 					<NavLink
 						href="/reports/repo4"
 						Icon={GradingIcon}
-						label="Unidades de análisis y estudios de casos asociados por contextos"
-					/>
-					<NavLink
-						href="/reports/repo5"
-						Icon={GradingIcon}
-						label="Estudios de casos por tipo de evidencia"
+						label="Estudios de casos asociados por contextos"
 					/>
 				</NavLinkCollapse>
 			)}

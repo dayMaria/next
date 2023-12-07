@@ -28,7 +28,17 @@ export default function EditUsers({ users }) {
 				<Edit />
 			</IconButton>
 			<Dialog open={open} fullWidth maxWidth="sm">
-				<DialogTitle> Editar usuario</DialogTitle>
+				<DialogTitle
+					style={{
+						background: "#0A4551",
+						padding: 4.5,
+						display: "flex",
+						justifyContent: "center",
+						color: "#FAFBFC",
+					}}
+				>
+					Editar usuario
+				</DialogTitle>
 				<DialogContent>
 					<TextField
 						select
@@ -37,7 +47,7 @@ export default function EditUsers({ users }) {
 						onChange={ev => setRol(ev.target.value)}
 						required
 						value={rol}
-						style={{ marginBottom: "20px" }}
+						style={{ marginBottom: "20px", marginTop: "20px" }}
 					>
 						<MenuItem></MenuItem>
 						<MenuItem

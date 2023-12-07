@@ -6,7 +6,9 @@ export default function DocumentacionIndex() {
 	return (
 		<>
 			<Head>
-				<title>{process.env.NEXT_PUBLIC_APP_NAME} - Documentación</title>
+				<title>
+					{process.env.NEXT_PUBLIC_APP_NAME} - Gestión de estudios de casos
+				</title>
 			</Head>
 			<PageContainer page="Titulo">Test</PageContainer>
 		</>

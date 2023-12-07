@@ -47,7 +47,6 @@ export default function ContextTable({ data }) {
 						value={searchTerm}
 						onChange={e => setSearchTerm(e.target.value)}
 					/>
-					<AddContext />
 				</Stack>
 			}
 		/>

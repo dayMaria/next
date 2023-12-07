@@ -42,14 +42,24 @@ export default function AddUsers() {
 				<Add />
 			</IconButton>
 			<Dialog open={open} fullWidth maxWidth="sm">
-				<DialogTitle> Añadir usuario</DialogTitle>
+				<DialogTitle
+					style={{
+						background: "#0A4551",
+						padding: 4.5,
+						display: "flex",
+						justifyContent: "center",
+						color: "#FAFBFC",
+					}}
+				>
+					Añadir usuario
+				</DialogTitle>
 				<DialogContent>
 					<TextField
 						label="Nombre de usuario"
 						onChange={ev => setName(ev.target.value)}
 						required
 						value={username}
-						style={{ marginBottom: "20px" }}
+						style={{ marginBottom: "20px", marginTop: "20px" }}
 					/>
 					<TextField
 						label="Contraseña"

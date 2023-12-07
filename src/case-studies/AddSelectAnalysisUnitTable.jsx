@@ -9,6 +9,7 @@ import {
 	FormControlLabel,
 	IconButton,
 	CircularProgress,
+	Typography,
 } from "@mui/material";
 import { Add } from "@mui/icons-material";
 import { useState } from "react";
@@ -40,7 +41,9 @@ export default function AddSelectAnalysisUnitTable({
 		setSearchTerm(event.target.value);
 	};
 
-	const filteredCheckboxes = items.filter(x => x.name.includes(searchTerm));
+	const filteredCheckboxes = items.filter(x =>
+		x.name.toLowerCase().includes(searchTerm.toLowerCase())
+	);
 
 	return (
 		<>
@@ -48,6 +51,18 @@ export default function AddSelectAnalysisUnitTable({
 				<Add />
 			</IconButton>
 			<Dialog open={open} onClose={handleClose}>
+				<div style={{ background: "#0A4551", padding: 4.5 }}>
+					<Typography
+						variant="h5"
+						style={{
+							display: "flex",
+							justifyContent: "center",
+							color: "#FAFBFC",
+						}}
+					>
+						Listado de unidades de análisis
+					</Typography>
+				</div>
 				<DialogContent>
 					<Stack direction="row" spacing={2} style={{ marginTop: 10 }}>
 						<TextField

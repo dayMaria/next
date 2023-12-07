@@ -34,8 +34,18 @@ export default function AddTypeEvidence() {
 				<Add />
 			</IconButton>
 			<Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
-				<DialogTitle> Añadir tipo de evidencia</DialogTitle>
-				<DialogContent>
+				<DialogTitle
+					style={{
+						background: "#0A4551",
+						padding: 4.5,
+						display: "flex",
+						justifyContent: "center",
+						color: "#FAFBFC",
+					}}
+				>
+					Añadir tipo de evidencia
+				</DialogTitle>
+				<DialogContent style={{ marginTop: 20 }}>
 					<TextField
 						label="Nombre"
 						onChange={ev => setName(ev.target.value)}

@@ -17,6 +17,7 @@ import useCaseStudies from "../case-studies/useCaseStudies";
 import useContexts from "../context/useContexts";
 import useAnalysisUnits from "../analysis-unit/useAnalysisUnits";
 import useTypeEvidence from "./useTypeEvidence";
+import useAddEvidence from "./useAddEvidence";
 
 export default function AddEvidenceForm({ items, loading }) {
 	const [open, setOpen] = useState(false);
@@ -29,6 +30,8 @@ export default function AddEvidenceForm({ items, loading }) {
 	const [selectedAU, setSelectedAU] = useState("");
 	const [selectedEvidence, setSelectedEvidence] = useState("");
 	const [selectedTE, setSelectedTE] = useState("");
+	const [addEvidence, loadingSubmit] = useAddEvidence();
+	const [selectedLabel, setSelectedLabel] = useState("");
 
 	if (loading || loadingCS || loadingC || loadingAU || loadingTE) {
 		return <CircularProgress />;
@@ -62,11 +65,25 @@ export default function AddEvidenceForm({ items, loading }) {
 	};
 
 	const handleClose = () => {
+		setSelectedCaseStudy("");
+		setSelectedContext("");
+		setSelectedAU("");
+		setSelectedEvidence("");
+		setSelectedTE("");
+		setSelectedLabel("");
 		setOpen(false);
 	};
 
 	const handleSubmit = () => {
 		setOpen(false);
+		addEvidence({
+			files: selectedEvidence,
+			json: {
+				confiD: selectedCaseStudy,
+				typeEvidence: selectedTE,
+				label: selectedLabel,
+			},
+		});
 	};
 	return (
 		<>
@@ -74,9 +91,19 @@ export default function AddEvidenceForm({ items, loading }) {
 				<Add />
 			</IconButton>
 			<Dialog open={open} onClose={handleClose}>
-				<DialogTitle>Subir evidencias</DialogTitle>
+				<DialogTitle
+					style={{
+						background: "#0A4551",
+						padding: 4.5,
+						display: "flex",
+						justifyContent: "center",
+						color: "#FAFBFC",
+					}}
+				>
+					Subir evidencias
+				</DialogTitle>
 				<DialogContent>
-					<Stack direction="row" spacing={1}>
+					<Stack direction="row" spacing={1} style={{ marginTop: 20 }}>
 						<TextField
 							select
 							placeholder="Select"
@@ -121,7 +148,8 @@ export default function AddEvidenceForm({ items, loading }) {
 						</TextField>
 					</Stack>
 					<Stack
-						spacing={2}
+						spacing={1}
+						direction="row"
 						style={{
 							marginTop: "15px",
 						}}
@@ -140,19 +168,25 @@ export default function AddEvidenceForm({ items, loading }) {
 								</MenuItem>
 							))}
 						</TextField>
-						<div
-							style={{
-								display: "flex",
-								justifyContent: "center",
-							}}
-						>
-							<Upload
-								label={`Evidencia`}
-								onChange={setSelectedEvidence}
-								value={selectedEvidence}
-							/>
-						</div>
+						<TextField
+							label="Nombre del archivo"
+							onChange={ev => setSelectedLabel(ev.target.value)}
+							required
+							value={selectedLabel}
+						/>
 					</Stack>
+					<div
+						style={{
+							display: "flex",
+							justifyContent: "center",
+						}}
+					>
+						<Upload
+							label={`Evidencia`}
+							onChange={setSelectedEvidence}
+							value={selectedEvidence}
+						/>
+					</div>
 				</DialogContent>
 				<DialogActions>
 					<Button onClick={toggle}>Cancelar</Button>

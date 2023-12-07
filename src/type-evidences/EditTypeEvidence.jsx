@@ -27,13 +27,24 @@ export default function EditTypeEvidence({ typeEvidence }) {
 				<Edit />
 			</IconButton>
 			<Dialog open={open} fullWidth maxWidth="sm">
-				<DialogTitle>Editar tipo de evidencia</DialogTitle>
+				<DialogTitle
+					style={{
+						background: "#0A4551",
+						padding: 4.5,
+						display: "flex",
+						justifyContent: "center",
+						color: "#FAFBFC",
+					}}
+				>
+					Editar tipo de evidencia
+				</DialogTitle>
 				<DialogContent>
 					<TextField
 						label="Nombre"
 						onChange={ev => setName(ev.target.value)}
 						required
 						value={name}
+						style={{ marginTop: "20px" }}
 					/>
 				</DialogContent>
 				<DialogActions>

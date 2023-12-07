@@ -10,7 +10,7 @@ export default function Repo1() {
 				<title>{process.env.NEXT_PUBLIC_APP_NAME} - Reporte</title>
 			</Head>
 			<PageContainer role={roles.InvestigadorJefe}>
-				<Repo1Table data={[]} />
+				<Repo1Table />
 			</PageContainer>
 		</>
 	);

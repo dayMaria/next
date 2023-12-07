@@ -61,7 +61,7 @@ export default function Sidebar() {
 			{(user.rol === roles.Investigador ||
 				user.rol === roles.InvestigadorJefe) && (
 				<NavLink
-					href="/"
+					href="/visualizingAssociatedCaseStudies"
 					Icon={Preview}
 					label="Visualizar estudios de casos asociados"
 				/>

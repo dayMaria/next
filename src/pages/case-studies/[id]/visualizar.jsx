@@ -28,10 +28,7 @@ export default function Visualizar() {
 					{process.env.NEXT_PUBLIC_APP_NAME} - Visualizar estudio de caso
 				</title>
 			</Head>
-			<PageContainer
-				page="Visualizar caso de estudio"
-				role={roles.Investigador && roles.InvestigadorJefe}
-			>
+			<PageContainer page="Visualizar caso de estudio">
 				{loading || !data ? (
 					<CircularProgress />
 				) : (

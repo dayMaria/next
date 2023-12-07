@@ -11,24 +11,26 @@ import PageContainer from "../components/layout/PageContainer";
 import roles from "../constants/roles";
 import Head from "next/head";
 import AddEvidenceForm from "../case-studies/AddEvidenceForm";
+import SearchIcon from "@mui/icons-material/Search";
 import FileDownloadSharpIcon from "@mui/icons-material/FileDownloadSharp";
+import useTableEvidence from "../case-studies/useTableEvidence";
 
 const columns = [
 	{
 		title: "Estudio de caso",
-		key: "caseStudyName",
+		key: "cs_name",
 	},
 	{
 		title: "Contexto",
-		key: "context",
+		key: "c_name",
 	},
 	{
 		title: "Unidad de análisis",
-		key: "ua",
+		key: "au_name",
 	},
 	{
 		title: "Evidencia",
-		key: "evidence",
+		key: "evidence_label",
 	},
 	{
 		title: "Fecha",
@@ -51,12 +53,19 @@ export default function MisEvidencias() {
 	const [dataCS, loadingCS] = useCaseStudies();
 	const [dataC, loadingC] = useContexts();
 	const [dataAU, loadingAU] = useAnalysisUnits();
-
 	const [selectedCaseStudy, setSelectedCaseStudy] = useState("");
 	const [selectedContext, setSelectedContext] = useState("");
 	const [selectedAU, setSelectedAU] = useState("");
+	const [casestudy, setCasestudy] = useState("");
+	const [contexto, setContexto] = useState("");
+	const [analysisUnit, setAnalisisUnit] = useState("");
+	const [dataTable, loadingTable] = useTableEvidence(
+		casestudy,
+		contexto,
+		analysisUnit
+	);
 
-	if (loading || loadingCS || loadingC || loadingAU) {
+	if (loading || loadingCS || loadingC || loadingAU || loadingTable) {
 		return <CircularProgress />;
 	}
 	const caseStudy = dataCS.filter(cs =>
@@ -82,6 +91,12 @@ export default function MisEvidencias() {
 			)
 		);
 	}
+
+	const handleSearch = () => {
+		setCasestudy(selectedCaseStudy);
+		setContexto(selectedContext);
+		setAnalisisUnit(selectedAU);
+	};
 
 	return (
 		<>
@@ -133,9 +148,12 @@ export default function MisEvidencias() {
 								</MenuItem>
 							))}
 						</TextField>
+						<IconButton onClick={handleSearch}>
+							<SearchIcon />
+						</IconButton>
 						<AddEvidenceForm items={items} loading={loading} />
 					</Stack>
-					<Table columns={columns} data={[]} />
+					<Table columns={columns} data={dataTable} />
 				</div>
 			</PageContainer>
 		</>

@@ -14,7 +14,6 @@ export default function FormAuth({ onSubmit, loading }) {
 		<>
 			<div className="pt-12 bg-gray-100 flex justify-center h-screen">
 				<form
-					autoComplete={false}
 					className="shadow-md rounded-md px-6 py-4 space-y-4 bg-white w-80"
 					onSubmit={handleSubmit}
 					style={{ height: "fit-content", marginTop: "100px" }}
@@ -31,14 +30,12 @@ export default function FormAuth({ onSubmit, loading }) {
 					</Typography>
 					<Typography align="center">Iniciar sesión</Typography>
 					<TextField
-						autoComplete={false}
 						label="Nombre de usuario"
 						onChange={ev => setName(ev.target.value)}
 						required
 						value={username}
 					/>
 					<TextField
-						autoComplete={false}
 						label="Contraseña"
 						type="password"
 						onChange={ev => setPassword(ev.target.value)}

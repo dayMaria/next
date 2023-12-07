@@ -85,22 +85,26 @@ export default function AddSelectUsersTable({ users, onToggle }) {
 						{loading ? (
 							<CircularProgress />
 						) : (
-							filteredCheckboxes.map(x => (
-								<FormControlLabel
-									key={x.id}
-									className="hover:bg-gray-100 w-full"
-									label={x.username}
-									control={
-										<Checkbox
-											checked={users.some(c => c.id === x.id)}
-											//onChange={() => console.log({ users })}
-											onChange={() => {
-												onToggle(x), console.log({ users });
-											}}
+							filteredCheckboxes.map(
+								x =>
+									!(x.rol === "Administrador") && (
+										<FormControlLabel
+											key={x.id}
+											className="hover:bg-gray-100 w-full"
+											label={x.username}
+											control={
+												<Checkbox
+													checked={users.some(c => c.id === x.id)}
+													//onChange={() => console.log({ users })}
+													onChange={() => {
+														onToggle(x);
+														console.log({ users });
+													}}
+												/>
+											}
 										/>
-									}
-								/>
-							))
+									)
+							)
 						)}
 					</Stack>
 				</DialogContent>
